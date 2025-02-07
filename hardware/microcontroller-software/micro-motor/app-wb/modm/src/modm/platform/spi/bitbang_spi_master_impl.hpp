@@ -1,0 +1,184 @@
+/*
+ * Copyright (c) 2009-2010, Fabian Greif
+ * Copyright (c) 2009-2010, Martin Rosekeit
+ * Copyright (c) 2012-2017, Niklas Hauser
+ * Copyright (c) 2014, Sascha Schade
+ * Copyright (c) 2018, Raphael Lehmann
+ * Copyright (c) 2020, Erik Henriksson
+ *
+ * This file is part of the modm project.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+// ----------------------------------------------------------------------------
+
+#ifndef MODM_SOFTWARE_BITBANG_SPI_MASTER_HPP
+#	error	"Don't include this file directly, use 'bitbang_spi_master.hpp' instead!"
+#endif
+#include <modm/processing/fiber.hpp>
+
+template <typename Sck, typename Mosi, typename Miso>
+uint16_t
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::delayTime(1);
+
+template <typename Sck, typename Mosi, typename Miso>
+uint8_t
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::operationMode(0);
+
+// ----------------------------------------------------------------------------
+
+template <typename Sck, typename Mosi, typename Miso>
+template< class... Signals >
+void
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::connect()
+{
+	using Connector = GpioConnector<Peripheral::BitBang, Signals...>;
+	static constexpr bool ContainsSck = Connector::template Contains<Sck>;
+	static constexpr bool ContainsMosi = Connector::template Contains<Mosi>;
+	static constexpr bool ContainsMiso = Connector::template Contains<Miso>;
+	static_assert(ContainsSck and ContainsMosi and
+				  ((not Connector::template IsValid<Miso> and sizeof...(Signals) == 2) or
+				   (    Connector::template IsValid<Miso> and sizeof...(Signals) == 3 and ContainsMiso)),
+				  "BitBangSpiMaster<Sck, Mosi, Miso> can only connect to the same Sck, Mosi and Miso signals of the declaration!");
+
+	// Connector::disconnect();
+	Sck::setOutput(Sck::OutputType::PushPull);
+	Mosi::setOutput(Mosi::OutputType::PushPull);
+	Miso::setInput(Miso::InputType::Floating);
+	Connector::connect();
+}
+
+
+template <typename Sck, typename Mosi, typename Miso>
+template< class SystemClock, modm::baudrate_t baudrate, modm::percent_t tolerance >
+void
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::initialize()
+{
+	delayTime = 500'000'000ul / baudrate;
+	if (delayTime == 0) delayTime = 1;
+
+	Sck::reset();
+	Mosi::reset();
+}
+
+template <typename Sck, typename Mosi, typename Miso>
+void
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::setDataMode(DataMode mode)
+{
+	operationMode = (operationMode & ~0b11) | static_cast<uint8_t>(mode);
+	Sck::set(operationMode & 0b10);
+}
+
+template <typename Sck, typename Mosi, typename Miso>
+void
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::setDataOrder(DataOrder order)
+{
+	if (order == DataOrder::LsbFirst)
+		operationMode |= 0b100;
+	else
+		operationMode &= ~0b100;
+}
+
+template <typename Sck, typename Mosi, typename Miso>
+uint8_t
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::transferBlocking(uint8_t data)
+{
+	modm::this_fiber::yield();
+
+	for (uint_fast8_t ii = 0; ii < 8; ++ii)
+	{
+		// CPHA=1, sample on falling edge
+		if (operationMode & 0b01)
+			delay();
+
+		// if LSB first
+		if (operationMode & 0b100) {
+			Mosi::set(data & 0x01);
+			data >>= 1;
+		}
+		else {
+			Mosi::set(data & 0x80);
+			data <<= 1;
+		}
+
+		// CPHA=0, sample on rising edge
+		if (not (operationMode & 0b01))
+			delay();
+
+		// CPOL=0 -> High, CPOL=1 -> Low
+		Sck::set(not (operationMode & 0b10));
+
+		// CPHA=1, sample on falling edge
+		if (operationMode & 0b01)
+			delay();
+
+		// if LSB first
+		if (operationMode & 0b100) {
+			if (Miso::read()) data |= 0x80;
+		}
+		else {
+			if (Miso::read()) data |= 0x01;
+		}
+
+		// CPHA=0, sample on rising edge
+		if (not (operationMode & 0b01))
+			delay();
+
+		// CPOL=0 -> Low, CPOL=1 -> High
+		Sck::set(operationMode & 0b10);
+	}
+
+	return data;
+}
+
+template <typename Sck, typename Mosi, typename Miso>
+void
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::transferBlocking(
+		const uint8_t *tx, uint8_t *rx, std::size_t length)
+{
+	uint8_t tx_byte = 0xff;
+	uint8_t rx_byte;
+
+	for (std::size_t i = 0; i < length; i++)
+	{
+		if (tx) tx_byte = tx[i];
+
+		rx_byte = transferBlocking(tx_byte);
+
+		if (rx) rx[i] = rx_byte;
+	}
+}
+
+template <typename Sck, typename Mosi, typename Miso>
+modm::ResumableResult<uint8_t>
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::transfer(uint8_t data)
+{
+	data = transferBlocking(data);
+#ifdef MODM_RESUMABLE_IS_FIBER
+	return data;
+#else
+	return {modm::rf::Stop, data};
+#endif
+}
+
+template <typename Sck, typename Mosi, typename Miso>
+modm::ResumableResult<void>
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::transfer(
+		const uint8_t *tx, uint8_t *rx, std::size_t length)
+{
+	transferBlocking(tx, rx, length);
+#ifndef MODM_RESUMABLE_IS_FIBER
+	return {modm::rf::Stop, 0};
+#endif
+}
+
+// ----------------------------------------------------------------------------
+
+template <typename Sck, typename Mosi, typename Miso>
+void
+modm::platform::BitBangSpiMaster<Sck, Mosi, Miso>::delay()
+{
+	modm::delay_ns(delayTime);
+}
