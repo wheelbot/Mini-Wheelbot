@@ -1,0 +1,134 @@
+{
+    "ampc_config": {
+        "delta_m_WR": 0.02225774935259231,
+        "delta_m_B": 0.015962816511771116,
+        "delta_I_Wxz_Ryz": 1.5086401807110053e-05,
+        "delta_I_Wy_Rx": -4.8913942876228405e-05,
+        "delta_I_Bx": 7.58042915445416e-05,
+        "delta_I_By": -9.673068866078106e-05,
+        "delta_I_Bz": -6.173431091978585e-05,
+        "delta_r_W": 1.865381041706287e-05,
+        "delta_l_WB": 0.004237644478813674,
+        "delta_fric_magn": -0.00040868752889146147,
+        "delta_fric_slope": -43.34810623711347
+    },
+
+    "balancing_config": {
+        "Kpitch": [
+            -0.4,
+            -0.04,
+            -0.004,
+            -0.003
+        ],
+        "Kroll": [
+            -1.3,
+            -0.16,
+            -8e-05,
+            -0.0004
+        ]
+    },
+
+    "standup_config": {
+        "inputs_standup_rp": [
+            0.55,
+            3600,
+            1500
+        ],
+        "inputs_standup_rn": [
+            -0.55,
+            3600,
+            1500
+        ],
+        "inputs_laydown_rp": 1.0,
+        "inputs_laydown_rn": -1.0,
+        "inputs_pitch_standup_rp": [
+            0.42,
+            2530,
+            0
+        ],
+        "inputs_pitch_standup_rn": [
+            -0.36,
+            2530,
+            0
+        ],
+        "inputs_pitch_laydown_rp": [
+            1.0,
+            -0.01,
+            0.4,
+            30
+        ],
+        "inputs_pitch_laydown_rn": [
+            -1.0,
+            -0.03,
+            -0.42,
+            30
+        ],
+        "inputs_flip_standup_roll_pos": [
+            0.45,
+            280,
+            0
+        ],
+        "inputs_flip_standup_roll_neg": [
+            -0.5,
+            580,
+            0
+        ],
+        "controller_id_sequence": [
+            4
+        ],
+        "controller_id_sequence_roll_opt": [0, 4, 3, 1, 4, 2],
+        "controller_id_sequence_pitch_opt": [5, 4, 7, 6, 4, 8],
+        "steady_state_control_job_duration": -1,
+        "K_roll_pitch_standup_fallback": [
+            -1.2e0,
+            -1.3e-1,
+            -0.1e-05,
+            -4e-04
+        ],
+        "K_pitch_pitch_standup_fallback": [
+            -1.1e0,
+            -0.5e-1,
+            -0.2e-3,
+            -10e-4
+        ],
+        "K_roll_pitch_standup": [
+            -1.2e0,
+            -1.3e-1,
+            -0.1e-05,
+            -4e-04
+        ],
+        "K_pitch_pitch_standup": [
+            -1.1e0,
+            -0.51e-1,
+            -0.14e-3,
+            -8e-4
+        ],
+        "K_roll_flip_standup": [
+            -1.8e0,
+            -0.8e-1,
+            -0.001e-05,
+            -0.004e-04
+        ],
+        "K_pitch_flip_standup": [
+            -0.3e0,
+            -40e-3,
+            -0.002e-3,
+            -4.0e-3
+        ],
+        "regular_control_loop_update_rate": 6,
+        "flip_control_loop_update_rate": 1,
+        "duration_high_update_rate_after_flip_standup": 500,
+        "detection_angle_pitch": 40,
+        "detection_angle_roll": 40,
+        "flip_detection_angle_pitch": 20,
+        "flip_detection_angle_roll": 20,
+        "step_duration": 90,
+        "pitch_duration_switch_to_regular_operation": 180,
+        "flip_duration_switch_to_regular_operation": 300,
+        "shift_setpoint_drive_wheel_ang": 6.28319,
+        "toggle_state_feedback_shift_setpoint_drive_wheel_pos": false,
+        "pitch_standup_shift_setpoint_": 12,
+        "pitch_standup_shift_setpoint": 15,
+        "fixed_sequence_experiment_mode": false
+    }
+}

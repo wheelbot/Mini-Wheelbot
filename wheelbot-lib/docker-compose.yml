@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  docker_realtime:
+    image: wheelbot-lib:latest
+    build: .
+    network_mode: "host"
+    tty: true
+    privileged: true
+    restart: always
+    cap_add:
+      - SYS_NICE
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    volumes:
+      - ./:/wheelbot-lib/
+      - /root/.ssh:/root/.ssh
