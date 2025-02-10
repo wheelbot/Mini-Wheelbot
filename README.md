@@ -25,7 +25,7 @@ An overview of Wheelbot Hardware is available here:
 
 ## Citation
 The Mini Wheelbot is introduced in the paper:
-[Henrik Hose, Jan Weisgerber, and Sebastian Trimpe. **"The Mini Wheelbot: A Testbed for Learning-based Balancing, Flips, and Articulated Driving"**, accepted to the IEEE International Conference on Robotics and Automation ICRA (2025).](https://arxiv.org)
+[Henrik Hose, Jan Weisgerber, and Sebastian Trimpe. **"The Mini Wheelbot: A Testbed for Learning-based Balancing, Flips, and Articulated Driving"**, accepted to the IEEE International Conference on Robotics and Automation ICRA (2025).](http://arxiv.org/abs/2502.04582)
 
 Please cite our paper on the Mini Wheelbot:
 ```bibtex
@@ -39,7 +39,7 @@ Please cite our paper on the Mini Wheelbot:
 
 ## Papers using the Mini Wheelbot Hardware
 The following papers use Mini Wheelbot:
-- [Henrik Hose, Jan Weisgerber, and Sebastian Trimpe. **"The Mini Wheelbot: A Testbed for Learning-based Balancing, Flips, and Articulated Driving"**, accepted to the IEEE International Conference on Robotics and Automation ICRA (2025).](https://arxiv.org)
+- [Henrik Hose, Jan Weisgerber, and Sebastian Trimpe. **"The Mini Wheelbot: A Testbed for Learning-based Balancing, Flips, and Articulated Driving"**, accepted to the IEEE International Conference on Robotics and Automation ICRA (2025).](http://arxiv.org/abs/2502.04582)
 - [Hose, Henrik, Paul Brunzema, Alexander von Rohr, Alexander Gräfe, Angela P. Schoellig, and Sebastian Trimpe. **"Fine-Tuning of Neural Network Approximate MPC without Retraining via Bayesian Optimization."** In CoRL Workshop on Safe and Robust Robot Learning for Operation in the Real World. 2024.](https://openreview.net/pdf?id=lSah6an1Ar)
 
 
