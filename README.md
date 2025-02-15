@@ -21,7 +21,7 @@ The Mini Wheelbot can use its wheels to stand up from any initial orientation â€
 
 ## Videos
 An overview of Wheelbot Hardware is available here:
-[![ICRA 2025 Video](./imgs/firstframe.jpg)](https://youtu.be/Enmidh5OGS4)
+[![ICRA 2025 Video](./imgs/firstframe.jpg)](https://youtu.be/_d7AqTRjz6g)
 
 ## Citation
 The Mini Wheelbot is introduced in the paper:
