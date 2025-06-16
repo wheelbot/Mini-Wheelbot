@@ -1,40 +1,79 @@
 # Bill of Materials
 ** This list is work in progress and not yet complete ** 
 
-| Group | Item | Description | Qty | Vendor |
-| --- | ---- | ---- | --- | --- |
-| Mechanical | [Frame](mechanical/step/frame.step) | ISO 2748 medium, material aluminium 6061 or 6081, 8x M3 and 4x M2.5 Threads | 1 | [https://xometry.eu](https://xometry.eu) |
-| | [Wheel](mechanical/step/reactionwheel.stp) |  ISO 2748 fine, material brass MS58, one surface to H5 tolerance | 2 | [https://xometry.eu](https://xometry.eu) |
-| | [Lid](mechanical/step/lid.stp) | ISO 2748 medium, material aluminium 6061 or 6081 | 2 | [https://xometry.eu](https://xometry.eu) |
-|  | Motors | T-Motor MN4006 KV380 | 2 (sold as 1 set) | [https://store.tmotor.com](https://store.tmotor.com/product/mn4006-kv380-motor-antigravity-type.html) |
-| | Encoder magnet | | | | 
-| PCBs | [Power Distribution](schematic/power-distribution.pdf) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| | [Motor Controller](schematic/micro-motor.pdf) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 2 | [http://pcbway.com/](http://pcbway.com/) |
-| | [Flex PCB IMU 1](schematic/imu-flex.pdf) | 2 layer, 0.1mm, FR4 Stiffener | 1 | [http://pcbway.com/](http://pcbway.com/) | 
-| | [Flex PCB IMU 2](schematic/imu-flex.pdf) | 2 layer, 0.1mm, FR4 Stiffener | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| | [Compute Carrier](schematic/compute-carrier.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| | [Cell Protection](schematic/cell-protection.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| | Cell Adapter | 2 layer, 1.6mm, 2x press fit holes! | 2 | [http://pcbway.com/](http://pcbway.com/) |
-| | 3-phase cable extension | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) |
-| | [Encoder](schematic/encoder.pdf) | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) | 
-| Battery | Lipo Cells | Tattu 450mAH 75C XT30 Long 61x16mm cells from 2S,3S or 4S packs, e.g., TA-75C-450-2S1P-L | 6 cells (e.g., from 3 2S packs) | [https://www.fpv24.com](https://www.fpv24.com/de/tattu/tattu-batterie-lipo-akku-2s-450-mah-30c-xt30-lang) |
-| | Shrink wrap | ... | |  |
-| | Tape | ... | | | |
-| | Electrical Silicone | Chip Quik EGS10C­20G | | |
-| | Quick Set Epoxy | 5 min Epoxy | | | |
-| | Threaded inserts | | | | 
-| Wiring | Motor phase | Flexible  |  | |
-| | Encoder 1 | Precrimpt JST GH XX mm length | | [https://www.digikey.de/](https://www.digikey.de/) | 
-| | Encoder 2 | Precrimpt JST GH XX mm length | | [https://www.digikey.de/](https://www.digikey.de/) | 
-| | Shielding Copper Tape | | | [https://www.digikey.de/](https://www.digikey.de/) |
-| | JST XH crimp contacts | | | | 
-| | JST XH 3pin housing | | | | 
-| Misc | Motorcontroller Mosfet Heat Sink | | 3 | | 
-| | Thermal tape | WE-TTT 8mm wide EGS10C­20G | | |
-| | Raspberry Pi CM4 | 8GB RAM, 16GB EMMC, WIFI | 1 | |
-| | Bolts ... | | | |
-| 3D prints | Battery housing | PETG or other high-temp filament, NO PLA | 1 | |
-| | Battery lid | PETG or other high-temp filament, NO PLA | 1 | |
-| | Internal frame 1 | PETG or other high-temp filament, NO PLA | 1 | |
-| | Internal frame 2 | PETG or other high-temp filament, NO PLA | 1 | |
-| | Magnet holder | PETG or other high-temp filament, NO PLA | 1 | |
+## CNC Parts
+| Item | Description | Qty | Vendor |
+| ---- | ---- | --- | --- |
+| [Frame](mechanical/step/frame.step) | ISO 2768 medium, material aluminium 6061 or 6081, 8x M3 and 4x M2.5 Threads | 1 | [https://xometry.eu](https://xometry.eu) |
+| [Wheel](mechanical/step/reactionwheel.stp) |  ISO 2768 fine, material brass MS58, one surface to H5 tolerance | 2 | [https://xometry.eu](https://xometry.eu) |
+| [Lid](mechanical/step/lid.stp) | ISO 2768 medium, material aluminium 6061 or 6081 | 2 | [https://xometry.eu](https://xometry.eu) |
+
+## Motors
+| Item | Description | Qty | Vendor |
+| ---- | ---- | --- | --- |
+| Motors | T-Motor MN4006 KV380 | 2 (sold as 1 set) | [T-Motor](https://store.tmotor.com/product/mn4006-kv380-motor-antigravity-type.html) |
+| Encoder magnet | N35SH D=6mm t=2.5mm | 2 | [DigiKey](https://www.digikey.de/de/products/detail/radial-magnets-inc/9049/6030786) | 
+| O-Ring | 56mm x 2mm NBR90 | 2 (get some spare!) | Maybe [McMaster](https://www.mcmaster.com/1247N172/) |
+
+## Custom PCBs
+| Item | Description | Qty | Vendor |
+| ---- | ---- | --- | --- |
+| [Power Distribution](schematic/power-distribution.pdf) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| [Motor Controller](schematic/micro-motor.pdf) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 2 | [http://pcbway.com/](http://pcbway.com/) |
+| [Flex PCB IMU 1](schematic/imu-flex.pdf) | 2 layer, 0.1mm, FR4 Stiffener | 1 | [http://pcbway.com/](http://pcbway.com/) | 
+| [Flex PCB IMU 2](schematic/imu-flex.pdf) | 2 layer, 0.1mm, FR4 Stiffener | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| [Compute Carrier](schematic/compute-carrier.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| [Cell Protection](schematic/cell-protection.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| Cell Adapter | 2 layer, 1.6mm, 2x press fit holes! | 2 | [http://pcbway.com/](http://pcbway.com/) |
+| 3-phase cable extension | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) |
+| [Encoder](schematic/encoder.pdf) | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) | 
+
+## Battery Cells
+| Item | Description | Qty | Vendor |
+| ---- | ---- | --- | --- |
+| LiPo battery cells | Tattu 450mAH 75C XT30 Long 61x16mm cells from 2S,3S or 4S packs, e.g., TA-75C-450-2S1P-L | 6 cells (e.g., from 3 2S packs) | [fpv24.com](https://www.fpv24.com/de/tattu/tattu-batterie-lipo-akku-2s-450-mah-30c-xt30-lang) |
+| Shrink wrap | 36mm wide when flat LiPO battery shrink wrap | <0.30m per robot | [Aliexpress](https://www.aliexpress.com/item/1005001749492020.html) |
+| 3M ET 1339 tape | fiber reinforced polyester film tape, 15mm wide (can be more) | <1m per robot | [DigiKey](https://www.digikey.com/en/products/detail/3m-tc/1339-1-60/7571874) |
+| Electrical grade silicone | Chip Quik EGS10C­20G | 1 | [DigiKey](https://www.digikey.com/en/products/detail/chip-quik-inc/EGS10C-20G/10059587) |
+
+## Bolts and Fasteners
+| Item | Description | Qty | Vendor |
+| ---- | ---- | --- | --- |
+| M2.5 nuts flat | DIN 439 M2.5 hex nut flat stainless A1/A2 | 8 | [McMaster](https://www.mcmaster.com/90710A025/) |
+| M2.5x10mm set screw | DIN 913 set screw stainless A1/A2 M2.5x10 | 4 | [McMaster](https://www.mcmaster.com/92605A073/) |
+| M2x6mm flat head screw | DIN 965 flat head torx stainless A1/A1 M2x6mm | 2 | [McMaster](https://www.mcmaster.com/92703A145/) |
+| M2.5x6mm flat head screw | DIN 965 flat head torx stainless A1/A2 M2.5x6mm | 2 | [McMaster](https://www.mcmaster.com/92703A158/) |
+| M3x20mm flat head screw | DIN 965 flat head torx stainless A1/A2 M3x20mm | 2 | [McMaster](https://www.mcmaster.com/92703A455/) |
+| M2x4mm socket head screw | DIN912 socket head hex stainless A1/A2 M2x4mm | 6 | [McMaster](https://www.mcmaster.com/91292A004/) |
+| M2x8mm socket head screw | DIN912 socket head hex stainless A1/A2 M2x8mm | 6 | [McMaster](https://www.mcmaster.com/91292A832/) |
+| M2.5x4mm socket head screw | DIN912 socket head hex stainless A1/A2 M2.5x4mm | 5 | [McMaster](https://www.mcmaster.com/91292A015/) |
+| M3x6mm socket head screw | DIN912 socket head hex stainless A1/A2 M3x6mm | 14 | [McMaster](https://www.mcmaster.com/91292A112/) |
+| M3x8mm socket head screw | DIN912 socket head hex stainless A1/A2 M3x8mm | 2 | [McMaster](https://www.mcmaster.com/91292A111/) |
+| M2x3mm threaded 3D print insert | Brass heat-set inserts for plastic, M2x3mm | 7 | [McMaster](https://www.mcmaster.com/94459A110/) | 
+| M2.5x4mm threaded 3D print insert | Brass heat-set inserts for plastic, M2.5x4mm | 2 | [McMaster](https://www.mcmaster.com/94459A768/) | 
+
+# Precrimped Cables and Connector Housings
+| Item | Description | Qty | Vendor |
+| ---- | ---- | --- | --- |
+| JST-GH 2in | AGHGH28K51 precrimped 2in 28AWG single wire | 12 | [DigiKey](https://www.digikey.de/de/products/detail/jst-sales-america-inc/AGHGH28K51/6009448) |
+| JST-GH 6in | AGHGH28K152 precrimped 6in 28AWG single wire | 6 | [DigiKey](https://www.digikey.de/de/products/detail/jst-sales-america-inc/AGHGH28K152/6009449) |
+| JST-XH 2in | ASXHSXH22K51 precrimped 2in 22AWG single wire | 6 | [DigiKey](https://www.digikey.de/de/products/detail/jst-sales-america-inc/ASXHSXH22K51/6684930) |
+| JST-XH 4in | ASXHSXH22K102 precrimped 4in 22AWG single wire | 3 | [DigiKey](https://www.digikey.de/de/products/detail/jst-sales-america-inc/ASXHSXH22K102/9961917) | 
+| JST GH 6 pin plug housing | GHR-06V-S | 6 | [DigiKey](https://www.digikey.de/de/products/detail/jst-sales-america-inc/GHR-06V-S/807818) |
+| JST XH 3 pin plug housing | XHP-3 | 3 | [DigiKey](https://www.digikey.de/de/products/detail/jst-sales-america-inc/XHP-3/1651017) |
+
+## MISC
+| Item | Description | Qty | Vendor |
+| ---- | ---- | --- | --- |
+| Quick set epoxy | Any 5 min Epoxy | a few drops | [McMaster](https://www.mcmaster.com/7541A76/) |
+| Shielding copper tape | 3M Copper Tape | a small strip | [DigiKey](https://www.digikey.de/de/products/detail/3m-tc/3M-9876-15-12-X-12-SHEET/9841909) |
+| Raspberry Pi CM4 | at least 8GB RAM, 16GB EMMC, with WIFI | 1 | [DigiKey](https://www.digikey.de/en/products/detail/raspberry-pi/SC0677/13530927) |
+
+## 3D Prints
+| Item | Description | Qty | Vendor |
+| ---- | ---- | --- | --- |
+| Battery housing | PETG or other high-temp filament, NO PLA | 1 | |
+| Battery lid | PETG or other high-temp filament, NO PLA | 1 | |
+| Internal frame 1 | PETG or other high-temp filament, NO PLA | 1 | |
+| Internal frame 2 | PETG or other high-temp filament, NO PLA | 1 | |
+| Magnet holder | PETG or other high-temp filament, NO PLA | 1 | |
