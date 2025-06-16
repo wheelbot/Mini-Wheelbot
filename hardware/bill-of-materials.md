@@ -28,7 +28,7 @@
 | 3-phase cable extension | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) |
 | [Encoder](schematic/encoder.pdf) | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) | 
 
-## Battery Cells
+## Battery Pack
 | Item | Description | Qty | Vendor |
 | ---- | ---- | --- | --- |
 | LiPo battery cells | Tattu 450mAH 75C XT30 Long 61x16mm cells from 2S,3S or 4S packs, e.g., TA-75C-450-2S1P-L | 6 cells (e.g., from 3 2S packs) | [fpv24.com](https://www.fpv24.com/de/tattu/tattu-batterie-lipo-akku-2s-450-mah-30c-xt30-lang) |
