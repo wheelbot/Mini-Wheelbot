@@ -68,12 +68,13 @@
 | Quick set epoxy | Any 5 min Epoxy | a few drops | [McMaster](https://www.mcmaster.com/7541A76/) |
 | Shielding copper tape | 3M Copper Tape | a small strip | [DigiKey](https://www.digikey.de/de/products/detail/3m-tc/3M-9876-15-12-X-12-SHEET/9841909) |
 | Raspberry Pi CM4 | at least 8GB RAM, 16GB EMMC, with WIFI | 1 | [DigiKey](https://www.digikey.de/en/products/detail/raspberry-pi/SC0677/13530927) |
+| Heat shrink | 3:1 heat shrink with glue for 22AWG single wires, 30-40mm length | 9 | |
 
 ## 3D Prints
 | Item | Description | Qty | Vendor |
 | ---- | ---- | --- | --- |
-| Battery housing | PETG or other high-temp filament, NO PLA | 1 | |
-| Battery lid | PETG or other high-temp filament, NO PLA | 1 | |
-| Internal frame 1 | PETG or other high-temp filament, NO PLA | 1 | |
-| Internal frame 2 | PETG or other high-temp filament, NO PLA | 1 | |
+| [Battery housing](mechanical/meshes/battery_front.stl) | PETG or other high-temp filament, NO PLA | 1 | |
+| [Battery lid](mechanical/meshes/battery_back.stl) | PETG or other high-temp filament, NO PLA | 1 | |
+| [Internal frame 1](mechanical/step/electronics_frame_split_1.stp), can be printed in two pieces [a](mechanical/meshes/electronics_frame_split_1-a.stl) and [b](mechanical/meshes/electronics_frame_split_1-b.stl) and glued | PETG or other high-temp filament, NO PLA | 1 | |
+| [Internal frame 2](mechanical/step/electronics_frame_split_2.stp), can be printed in two pieces [a](mechanical/meshes/electronics_frame_split_2-a.stl) and [b](mechanical/meshes/electronics_frame_split_2-b.stl) and glued | PETG or other high-temp filament, NO PLA | 1 | |
 | Magnet holder | PETG or other high-temp filament, NO PLA | 1 | |
