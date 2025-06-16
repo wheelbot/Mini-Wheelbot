@@ -25,7 +25,7 @@
 | [Compute Carrier](schematic/compute-carrier.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
 | [Cell Protection](schematic/cell-protection.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
 | Cell Adapter | 2 layer, 1.6mm, 2x press fit holes! | 2 | [http://pcbway.com/](http://pcbway.com/) |
-| 3-phase cable extension | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) |
+| 3-phase cable extension | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
 | [Encoder](schematic/encoder.pdf) | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) | 
 
 ## Battery Pack
