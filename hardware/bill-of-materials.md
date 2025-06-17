@@ -35,6 +35,7 @@
 | Shrink wrap | 36mm wide when flat LiPO battery shrink wrap | <0.30m per robot | [Aliexpress](https://www.aliexpress.com/item/1005001749492020.html) |
 | 3M ET 1339 tape | fiber reinforced polyester film tape, 15mm wide (can be more) | <1m per robot | [DigiKey](https://www.digikey.com/en/products/detail/3m-tc/1339-1-60/7571874) |
 | Electrical grade silicone | Chip Quik EGS10C­20G | 1 | [DigiKey](https://www.digikey.com/en/products/detail/chip-quik-inc/EGS10C-20G/10059587) |
+| Isolated NTC 10k | NRMR104F3435B2F NTC 10k B 3435K isolated leads | 2 | [DigiKey](https://www.digikey.com/en/products/detail/eaton-electronics-division/NRMR104F3435B2F/15927881) |
 
 ## Bolts and Fasteners
 | Item | Description | Qty | Vendor |
