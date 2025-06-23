@@ -46,12 +46,12 @@
 | M2.5x6mm flat head screw | DIN 965 flat head torx stainless A1/A2 M2.5x6mm | 2 | [McMaster](https://www.mcmaster.com/92703A158/) |
 | M3x20mm flat head screw | DIN 965 flat head torx stainless A1/A2 M3x20mm | 2 | [McMaster](https://www.mcmaster.com/92703A455/) |
 | M2x4mm socket head screw | DIN912 socket head hex stainless A1/A2 M2x4mm | 6 | [McMaster](https://www.mcmaster.com/91292A004/) |
-| M2x8mm socket head screw | DIN912 socket head hex stainless A1/A2 M2x8mm | 6 | [McMaster](https://www.mcmaster.com/91292A832/) |
+| M2x8mm socket head screw | DIN912 socket head hex stainless A1/A2 M2x8mm | 1 | [McMaster](https://www.mcmaster.com/91292A832/) |
 | M2.5x4mm socket head screw | DIN912 socket head hex stainless A1/A2 M2.5x4mm | 5 | [McMaster](https://www.mcmaster.com/91292A015/) |
 | M3x6mm socket head screw | DIN912 socket head hex stainless A1/A2 M3x6mm | 14 | [McMaster](https://www.mcmaster.com/91292A112/) |
 | M3x8mm socket head screw | DIN912 socket head hex stainless A1/A2 M3x8mm | 2 | [McMaster](https://www.mcmaster.com/91292A111/) |
-| M2x3mm threaded 3D print insert | Brass heat-set inserts for plastic, M2x3mm | 7 | [McMaster](https://www.mcmaster.com/94459A110/) | 
-| M2.5x4mm threaded 3D print insert | Brass heat-set inserts for plastic, M2.5x4mm | 2 | [McMaster](https://www.mcmaster.com/94459A768/) | 
+| M2x3mm threaded 3D print insert | Brass heat-set inserts for plastic, M2x3mm | 2 | [McMaster](https://www.mcmaster.com/94459A110/) | 
+| M2.5x4mm threaded 3D print insert | Brass heat-set inserts for plastic, M2.5x4mm | 7 | [McMaster](https://www.mcmaster.com/94459A768/) | 
 
 # Precrimped Cables and Connector Housings
 | Item | Description | Qty | Vendor |
