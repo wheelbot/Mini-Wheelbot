@@ -18,15 +18,15 @@
 ## Custom PCBs
 | Item | Description | Qty | Vendor |
 | ---- | ---- | --- | --- |
-| [Power Distribution](schematic/power-distribution.pdf) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| [Motor Controller](schematic/micro-motor.pdf) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 2 | [http://pcbway.com/](http://pcbway.com/) |
-| [Flex PCB IMU 1](schematic/imu-flex.pdf) | 2 layer, 0.1mm, FR4 Stiffener | 1 | [http://pcbway.com/](http://pcbway.com/) | 
-| [Flex PCB IMU 2](schematic/imu-flex.pdf) | 2 layer, 0.1mm, FR4 Stiffener | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| [Compute Carrier](schematic/compute-carrier.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| [Cell Protection](schematic/cell-protection.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| [Power Distribution](electronics/schematic/power-distribution.pdf) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| [Motor Controller](electronics/schematic/micro-motor.pdf) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 2 | [http://pcbway.com/](http://pcbway.com/) |
+| [Flex PCB IMU 1](electronics/schematic/imu-flex.pdf) | 2 layer, 0.1mm, FR4 Stiffener | 1 | [http://pcbway.com/](http://pcbway.com/) | 
+| [Flex PCB IMU 2](electronics/schematic/imu-flex.pdf) | 2 layer, 0.1mm, FR4 Stiffener | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| [Compute Carrier](electronics/schematic/compute-carrier.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| [Cell Protection](electronics/schematic/cell-protection.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
 | Cell Adapter | 2 layer, 1.6mm, 2x press fit holes! | 2 | [http://pcbway.com/](http://pcbway.com/) |
 | 3-phase cable extension | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| [Encoder](schematic/encoder.pdf) | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) | 
+| [Encoder](electronics/schematic/encoder.pdf) | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) | 
 
 ## Battery Pack
 | Item | Description | Qty | Vendor |

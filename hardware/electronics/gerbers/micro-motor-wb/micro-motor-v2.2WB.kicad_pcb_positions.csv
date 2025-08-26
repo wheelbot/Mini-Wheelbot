@@ -1,0 +1,87 @@
+﻿pos_x,pos_y,rotation,side,designator,mpn,pack,footprint,value,mount_type
+166.35,-106.45,90.0,bottom,C1,,,C_0402_1005Metric,1µ,smt
+158.1,-102.0,-90.0,top,C10,,,C_1206_3216Metric,10u 50V,smt
+156.5,-106.2,90.0,bottom,C11,,,C_1206_3216Metric,10u 50V,smt
+154.7,-106.2,90.0,bottom,C12,,,C_1206_3216Metric,10u 50V,smt
+152.9,-106.2,90.0,bottom,C13,,,C_1206_3216Metric,10u 50V,smt
+156.3,-109.7,180.0,bottom,C14,,,C_1206_3216Metric,10u 50V,smt
+156.325,-118.85,180.0,bottom,C15,,,C_1206_3216Metric,10u 50V,smt
+156.325,-117.05,180.0,bottom,C16,,,C_1206_3216Metric,10u 50V,smt
+162.975,-108.55,0.0,top,C17,,,C_1206_3216Metric,10u 50V,smt
+170.65,-106.0,90.0,bottom,C2,,,C_0402_1005Metric,1µ,smt
+160.15,-106.2,90.0,bottom,C20,,,C_1206_3216Metric,10u 50V,smt
+183.1,-105.7,0.0,bottom,C201,,,C_0402_1005Metric,100n,smt
+158.45,-102.0,-90.0,bottom,C21,,,C_1206_3216Metric,10u 50V,smt
+156.325,-111.55,180.0,bottom,C22,,,C_1206_3216Metric,10u 50V,smt
+158.35,-106.2,90.0,bottom,C23,,,C_1206_3216Metric,10u 50V,smt
+156.325,-113.4,180.0,bottom,C24,,,C_1206_3216Metric,10u 50V,smt
+151.25,-106.05,90.0,top,C25,,,C_1206_3216Metric,10u 50V,smt
+172.75,-100.55,0.0,bottom,C3,,,C_0402_1005Metric,100p,smt
+171.5,-118.25,0.0,top,C301,,,C_0402_1005Metric,100n,smt
+168.25,-109.7,-135.0,bottom,C302,,,C_0402_1005Metric,100n,smt
+178.5,-111.55,135.0,bottom,C303,,,C_0402_1005Metric,100n,smt
+170.7,-107.8,-135.0,bottom,C304,,,C_0402_1005Metric,100n,smt
+175.35,-119.05,45.0,bottom,C305,,,C_0402_1005Metric,100n,smt
+169.3,-108.4,135.0,bottom,C306,,,C_0402_1005Metric,100n,smt
+167.665,-109.1,-135.0,bottom,C307,,,C_0402_1005Metric,1u,smt
+176.55,-102.85,-90.0,bottom,C4,,,C_0805_2012Metric,22µ 35V 0805,smt
+149.1,-100.5,-90.0,top,C401,,,CP_Radial_D8.0mm_P3.50mm,EEHAZT1H680B,tht
+169.85,-108.25,90.0,top,C402,,,C_0402_1005Metric,100n,smt
+169.1,-108.25,90.0,top,C403,,,C_0402_1005Metric,100n,smt
+171.5,-116.2,180.0,top,C404,,,C_0402_1005Metric,1µ,smt
+170.95,-108.0,90.0,top,C405,,,C_0603_1608Metric,1µ 16V X7R,smt
+172.75,-110.475,90.0,top,C406,,,C_0402_1005Metric,47n 50V X7R,smt
+156.325,-115.25,180.0,bottom,C407,,,C_1206_3216Metric,10u 50V,smt
+163.05,-113.55,0.0,top,C408,,,C_1206_3216Metric,10u 50V,smt
+163.1,-118.25,0.0,top,C409,,,C_1206_3216Metric,10u 50V,smt
+164.85,-115.95,90.0,bottom,C410,,,C_0402_1005Metric,100n,smt
+164.85,-110.85,90.0,bottom,C411,,,C_0402_1005Metric,100n,smt
+164.8,-106.45,90.0,bottom,C412,,,C_0402_1005Metric,100n,smt
+166.75,-119.0,135.0,bottom,C5,,,C_0402_1005Metric,20p,smt
+169.45,-102.6,90.0,bottom,C501,,,C_0805_2012Metric,22µ 35V 0805,smt
+175.0,-102.85,-90.0,bottom,C503,,,C_0805_2012Metric,22µ 35V 0805,smt
+169.0,-119.1,-135.0,bottom,C6,,,C_0402_1005Metric,20p,smt
+163.5,-102.0,-90.0,top,C7,,,C_1206_3216Metric,10u 50V,smt
+161.7,-102.0,-90.0,top,C8,,,C_1206_3216Metric,10u 50V,smt
+159.9,-102.0,-90.0,top,C9,,,C_1206_3216Metric,10u 50V,smt
+162.85,-101.45,0.0,bottom,D1,,,D_SMA,SMAJ22A,smt
+183.85,-108.3,180.0,top,D301,,,LED_0402_1005Metric,POWER/blue,smt
+183.85,-107.3,180.0,top,D302,,,LED_0402_1005Metric,DAC1/red,smt
+183.8,-106.3,180.0,top,D303,,,LED_0402_1005Metric,DAC2/green,smt
+150.95,-103.1,90.0,top,J1,,,PinHeader_2x05_P1.27mm_Horizontal,FTSH-105-02-F-D-RA,tht
+152.5,-117.4,90.0,top,J106,,,JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical,B3B-XH-A,tht
+182.375,-114.475,-90.0,top,J2,,,JST_GH_BM06B-GHS-TBT_1x06-1MP_P1.25mm_Vertical,BM06B-GHS-TBT,smt
+176.075,-116.35,-90.0,top,J302,,,JST_GH_BM03B-GHS-TBT_1x03-1MP_P1.25mm_Vertical,BM03B-GHS-TBT,smt
+176.075,-109.175,-90.0,top,J303,,,JST_GH_BM03B-GHS-TBT_1x03-1MP_P1.25mm_Vertical,BM03B-GHS-TBT,smt
+179.65,-103.1,90.0,bottom,J6,,,PinHeader_2x02_P1.27mm_Horizontal,FTSH-102-02-F-D-RA,tht
+157.9,-117.5,-90.0,top,Q401,,,DFN-12-2EP_3.3x5mm_Pitch0.65mm,FDMD8240L,tht
+157.8935,-112.274,-90.0,top,Q402,,,DFN-12-2EP_3.3x5mm_Pitch0.65mm,FDMD8240L,tht
+157.8935,-107.024,-90.0,top,Q403,,,DFN-12-2EP_3.3x5mm_Pitch0.65mm,FDMD8240L,tht
+171.1,-100.55,180.0,bottom,R1,,,R_0402_1005Metric,22k1,smt
+166.8,-119.2,0.0,top,R102,,,R_0402_1005Metric,20k,smt
+168.7,-119.2,0.0,top,R103,,,R_0402_1005Metric,1k,smt
+166.8,-118.25,0.0,top,R104,,,R_0402_1005Metric,20k,smt
+168.7,-118.25,0.0,top,R105,,,R_0402_1005Metric,1k,smt
+166.8,-117.3,0.0,top,R106,,,R_0402_1005Metric,20k,smt
+168.7,-117.3,0.0,top,R107,,,R_0402_1005Metric,1k,smt
+172.425,-107.0,0.0,top,R109,,,R_0402_1005Metric,20k,smt
+172.435,-106.05,180.0,top,R110,,,R_0402_1005Metric,1k,smt
+166.065,-101.25,180.0,top,R114,,,R_0402_1005Metric,0,smt
+166.575,-112.275,-90.0,bottom,R2,,,R_0402_1005Metric,10k,smt
+182.0,-108.3,0.0,top,R304,,,R_0402_1005Metric,1k,smt
+182.0,-107.3,0.0,top,R305,,,R_0402_1005Metric,1k,smt
+182.0,-106.3,0.0,top,R306,,,R_0402_1005Metric,1k,smt
+172.625,-119.325,180.0,top,R401,,,R_0402_1005Metric,10k,smt
+162.05,-115.9,0.0,top,R402,,,R_0805_2012Metric,TLR2ATTD3L00F,smt
+162.2,-110.9,0.0,top,R403,,,R_0805_2012Metric,TLR2ATTD3L00F,smt
+162.15,-105.6,0.0,top,R404,,,R_0805_2012Metric,TLR2ATTD3L00F,smt
+166.45,-114.125,-90.0,bottom,TH1,,,R_0402_1005Metric,ERT-J0EG103FA,smt
+168.45,-105.95,0.0,bottom,U1,,,SOT-23-5,LP2980AIM5X-3.0/NOPB,smt
+162.9,-106.1,-90.0,bottom,U2,,,SOT-23-8,INA241A2IDDFR,smt
+183.27,-103.45,90.0,bottom,U201,,,SOT-23-8,TCAN330GDCNT,smt
+162.875,-110.8375,-90.0,bottom,U3,,,SOT-23-8,INA241A2IDDFR,smt
+172.5,-113.75,45.0,bottom,U301,,,LQFP-48_7x7mm_P0.5mm,STM32G474CET6,smt
+162.875,-115.9975,-90.0,bottom,U4,,,SOT-23-8,INA241A2IDDFR,smt
+169.15,-112.7,-90.0,top,U401,,,QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm,DRV8320SRTVT,smt
+172.25,-103.05,-90.0,bottom,U501,,,Converter_DCDC_Cyntec_MUN12AD01-SH,MUN12AD01-SH,smt
+167.8,-118.2,45.0,bottom,Y1,,,Oscillator_SMD_Abracon_ASCO-4Pin_1.6x1.2mm,ASCO-24.000MHZ-EK-T3,smt

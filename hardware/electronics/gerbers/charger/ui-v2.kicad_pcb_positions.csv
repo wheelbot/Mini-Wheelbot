@@ -1,0 +1,50 @@
+﻿pos_x,pos_y,rotation,side,designator,mpn,pack,footprint,value,mount_type
+136.9,-93.5,90.0,top,C1,,,C_0402_1005Metric,33n,smt
+140.1,-102.25,180.0,top,C10,,,C_0603_1608Metric,10u 6.3V,smt
+144.85,-102.3,0.0,top,C11,,,C_0603_1608Metric,10u 6.3V,smt
+140.9,-93.85,90.0,top,C12,,,C_0402_1005Metric,100n,smt
+139.1,-97.85,-90.0,top,C13,,,C_0402_1005Metric,100n,smt
+149.2,-92.95,0.0,top,C14,,,C_0402_1005Metric,330p,smt
+147.35,-92.95,0.0,top,C15,,,C_0402_1005Metric,330p,smt
+143.7,-93.7,0.0,top,C16,,,C_1206_3216Metric,10u 50V,smt
+145.6,-96.325,-90.0,top,C17,,,C_0603_1608Metric,1u 50V,smt
+139.25,-100.15,90.0,top,C18,,,C_0603_1608Metric,10u 6.3V,smt
+123.6,-100.0,180.0,top,C2,,,C_1206_3216Metric,10u 50V,smt
+124.25,-98.2,180.0,top,C3,,,C_0603_1608Metric,1u 50V,smt
+135.35,-94.8,90.0,top,C4,,,C_1206_3216Metric,10u 50V,smt
+133.5,-95.5,90.0,top,C5,,,C_0603_1608Metric,1u 50V,smt
+124.35,-93.4,180.0,top,C6,,,C_0402_1005Metric,4.7nF,smt
+139.5,-89.35,90.0,top,C7,,,C_1206_3216Metric,10u 50V,smt
+139.25,-94.2,90.0,top,C8,,,C_0603_1608Metric,1u 50V,smt
+142.45,-102.5,0.0,top,C9,,,C_0402_1005Metric,100n,smt
+139.5,-92.2,180.0,top,D1,,,LED_0402_1005Metric_Pad0.77x0.64mm_HandSolder,LED_RED,smt
+129.3,-99.4,0.0,top,D3,,,D_SMA,B140-13-F,smt
+124.0,-90.0,0.0,top,H1,,,Mounting_Wuerth_WA-SMSI-M2_H4mm_9774040243,MountingHole,smt
+155.0,-90.0,0.0,top,H2,,,Mounting_Wuerth_WA-SMSI-M2_H4mm_9774040243,MountingHole,smt
+152.4,-98.3,0.0,top,J1,,,JST_GH_SM06B-GHS-TB_1x06-1MP_P1.25mm_Horizontal,SM06B-GHS-TBT,smt
+146.04,-89.94,180.0,top,J2,,,GCT_USB4140-GF-0170-C_REV0.4,USB4140-GF-0170-C,smt
+135.6,-100.0,180.0,top,L1,,,L_Coilcraft_XAL5030-XXX,XGL5030-103,smt
+126.225,-94.4,0.0,top,R1,,,R_0402_1005Metric,194k,smt
+137.9,-93.55,-90.0,top,R10,,,R_0402_1005Metric,10k,smt
+147.36,-93.9,0.0,top,R11,,,R_0402_1005Metric,100k,smt
+147.36,-94.85,0.0,top,R12,,,R_0402_1005Metric,100k,smt
+145.3,-98.75,90.0,top,R13,,,R_0402_1005Metric,12k1,smt
+146.25,-98.74,90.0,top,R14,,,R_0402_1005Metric,115k,smt
+149.21,-93.9,0.0,top,R15,,,R_0402_1005Metric,12k1,smt
+149.2,-94.85,0.0,top,R16,,,R_0402_1005Metric,5k1,smt
+156.35,-94.6,0.0,top,R17,,,R_0402_1005Metric,100k,smt
+137.45,-95.0,180.0,top,R18,,,R_0402_1005Metric,100k,smt
+124.375,-94.4,180.0,top,R2,,,R_0402_1005Metric,10k,smt
+137.45,-95.95,180.0,top,R20,,,R_0402_1005Metric,100k,smt
+147.5,-95.95,0.0,top,R24,,,R_0402_1005Metric,100k,smt
+124.9125,-96.5875,0.0,top,R3,,,R_1206_3216Metric,D1WEL1206MR200D-T5,smt
+133.0,-93.3,180.0,top,R4,,,R_0402_1005Metric,10k,smt
+126.2,-93.0875,180.0,top,R5,,,R_0402_1005Metric,1k,smt
+154.41,-94.6,180.0,top,R6,,,R_0402_1005Metric,352k,smt
+154.41,-93.7,0.0,top,R7,,,R_0402_1005Metric,100k,smt
+145.3,-100.59,90.0,top,R8,,,R_0402_1005Metric,100k,smt
+146.25,-100.57,90.0,top,R9,,,R_0402_1005Metric,100k,smt
+130.5,-88.35,0.0,top,SW1,,,SW_CK_JS202011CQN_DPDT_Straight,JS202011CQN,tht
+129.8375,-95.1875,180.0,top,U1,,,QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm,LT3477EUF#PBF,smt
+142.425,-98.2,90.0,top,U2,,,Texas_REF0038A_WQFN-38-2EP_6x4mm_P0.4,TPS25730DREFR,smt
+151.7,-93.65,180.0,top,U3,,,WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm,TVS2200DRV,smt

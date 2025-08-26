@@ -1,0 +1,36 @@
+﻿pos_x,pos_y,rotation,side,designator,mpn,pack,footprint,value,mount_type
+139.0,-92.4,0.0,bottom,C1,,,C_0402_1005Metric,100n,smt
+131.1,-69.5,-90.0,bottom,C2,,,C_0402_1005Metric,100n,smt
+136.5,-73.4,0.0,bottom,C5,,,C_0402_1005Metric,100n,smt
+132.9,-80.9,-90.0,bottom,C6,,,C_0402_1005Metric,100n,smt
+135.7,-94.1,180.0,bottom,D1,,,D_SMA,SMAJ5.0,smt
+129.75,-63.3,-90.0,bottom,D2,,,LED_0402_1005Metric,LED Green,smt
+131.4,-79.3,-90.0,bottom,D3,,,LED_0402_1005Metric,LED Red,smt
+135.25,-86.7375,-90.0,bottom,D5,,,SOT-23,NUP2105L,smt
+125.75,-44.5,0.0,top,H1,,,Mounting_Wuerth_WA-SMST-2.7mm_H1.5mm_9774015951,MountingHole,smt
+158.75,-44.5,0.0,top,H2,,,Mounting_Wuerth_WA-SMST-2.7mm_H1.5mm_9774015951,MountingHole,smt
+158.75,-92.5,0.0,top,H3,,,Mounting_Wuerth_WA-SMST-2.7mm_H1.5mm_9774015951,MountingHole,smt
+125.765,-92.485,0.0,top,H4,,,Mounting_Wuerth_WA-SMST-2.7mm_H1.5mm_9774015951,MountingHole,smt
+149.2,-68.5,90.0,bottom,J2,,,Hirose_BK13C06-10DS_2x06_P0.35mm,BK13C06-10DS/2-0.35V(895),tht
+138.13,-91.25,0.0,bottom,J6,,,PinHeader_2x02_P1.27mm_Horizontal,FTSH-102-02-F-D-RA,tht
+140.3,-84.35,90.0,bottom,J7,,,JST_GH_BM03B-GHS-TBT_1x03-1MP_P1.25mm_Vertical,BM03B-GHS-TBT,smt
+135.3,-68.5,90.0,bottom,J8,,,Hirose_BK13C06-10DS_2x06_P0.35mm,BK13C06-10DS/2-0.35V(895),tht
+125.765,-92.485,0.0,top,Module1,,,Raspberry-Pi-4-Compute-Module,ComputeModule4-CM4,smt
+132.4625,-90.45,180.0,bottom,Q1,,,SOT-23,"PMV65XP,215",smt
+144.3,-66.4,-90.0,bottom,R1,,,R_0402_1005Metric,3k3,smt
+128.5,-75.9,180.0,bottom,R10,,,R_0402_1005Metric,0R,smt
+131.4,-77.315,90.0,bottom,R11,,,R_0402_1005Metric,1k,smt
+131.35,-81.3675,-90.0,bottom,R12,,,R_0402_1005Metric_Pad0.72x0.64mm_HandSolder,DNP,smt
+134.4,-73.9,180.0,bottom,R2,,,R_0402_1005Metric,3k3,smt
+143.4,-66.4,-90.0,bottom,R3,,,R_0402_1005Metric,3k3,smt
+134.4,-72.9,180.0,bottom,R4,,,R_0402_1005Metric,3k3,smt
+128.23,-67.0,-90.0,bottom,R5,,,R_0402_1005Metric,3k3,smt
+135.2,-83.7375,0.0,bottom,R6,,,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,120R,smt
+129.35,-67.0,-90.0,bottom,R8,,,R_0402_1005Metric,3k3,smt
+128.8,-63.3,-90.0,bottom,R9,,,R_0402_1005Metric,1k,smt
+129.225,-70.325,90.0,bottom,U1,,,DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm,CAT24C256HU4IGT3,smt
+129.15,-80.815,0.0,bottom,U2,,,SOT-353_SC-70-5,74LVC1G07SE-7,smt
+129.15,-77.815,0.0,bottom,U3,,,SOT-353_SC-70-5,74LVC1G07SE-7,smt
+137.6,-76.3,180.0,bottom,U6,,,DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm,MCP2517FD-xJHA,smt
+135.4,-80.8075,0.0,bottom,U7,,,SOT-23-8,TCAN332G,smt
+141.4,-77.35,-90.0,bottom,Y2,,,Resonator_SMD_Murata_CSTxExxV-3Pin_3.0x1.1mm,CSTNE20M0V53Z000R0,smt

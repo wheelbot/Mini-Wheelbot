@@ -45,7 +45,7 @@ The following papers use Mini Wheelbot:
 
 ## Structure of this Repo
 This repo contains the following materials:
-- [**PCB Schematics**](./hardware/schematic/): PCBs used on the Mini Wheelbot
+- [**PCB Schematics**](./hardware/electronics/schematic/): PCBs used on the Mini Wheelbot
 - [**Meshes**](./hardware/meshes/): for visualization
 - [**Wheelbot-Lib**](./wheelbot-lib/): C++20 code running on the Mini Wheelbots Buildroot Linux
 - [**Scripts**](./wheelbot-lib/scripts/): Collection of Python Scripts used for system identification, keyboard control, etc.

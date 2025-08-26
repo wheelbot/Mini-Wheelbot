@@ -1,0 +1,6 @@
+﻿pos_x,pos_y,rotation,side,designator,mpn,pack,footprint,value,mount_type
+10.5,-21.0,90.0,top,BT4,,,601560,Battery_Cell,tht
+10.5,-15.0,90.0,top,BT5,,,601560,Battery_Cell,tht
+10.5,-9.0,90.0,top,BT6,,,601560,Battery_Cell,tht
+20.5,-16.5,0.0,top,H3,,,0531-0-15-15-31-27-10-0,0531-0-15-15-31-27-10-0,tht
+20.5,-13.5,0.0,top,H4,,,0531-0-15-15-31-27-10-0,0531-0-15-15-31-27-10-0,tht

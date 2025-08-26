@@ -1,0 +1,139 @@
+﻿pos_x,pos_y,rotation,side,designator,mpn,pack,footprint,value,mount_type
+14.7,-3.9,-90.0,top,BZ1,,,Buzzer_CUI_CPT-9019S-SMT,PKMCS0909E4000-R1,smt
+-16.16,4.23,90.0,top,C1,,,C_0805_2012Metric,2u2,smt
+-19.99,9.03,0.0,top,C10,,,C_0805_2012Metric,22u,smt
+-23.73,3.83,180.0,top,C11,,,C_0402_1005Metric,47n,smt
+-19.9,16.1,180.0,top,C12,,,C_0402_1005Metric,1u,smt
+9.1,-22.7,-90.0,top,C13,,,C_1206_3216Metric,10µ 50V,smt
+7.3,-22.7,-90.0,top,C14,,,C_1206_3216Metric,10µ 50V,smt
+5.5,-22.725,-90.0,top,C15,,,C_1206_3216Metric,10µ 50V,smt
+-14.55,4.23,90.0,top,C16,,,C_0805_2012Metric,2u2,smt
+-12.95,4.24,90.0,top,C17,,,C_0805_2012Metric,2u2,smt
+10.9,-18.6,90.0,top,C18,,,C_1206_3216Metric,10µ 50V,smt
+7.7,-19.35,180.0,top,C19,,,C_1206_3216Metric,10µ 50V,smt
+22.65,-14.05,-90.0,bottom,C2,,,CP_Elec_6.3x5.7,DNP,smt
+3.7,-22.725,-90.0,top,C20,,,C_1206_3216Metric,10µ 50V,smt
+-25.93,1.03,90.0,top,C21,,,C_0402_1005Metric,1u,smt
+1.85,-22.725,-90.0,top,C22,,,C_1206_3216Metric,10µ 50V,smt
+15.6,1.67,180.0,top,C23,,,C_0402_1005Metric,100n,smt
+25.7,4.5,-45.0,top,C24,,,C_0402_1005Metric,100n,smt
+13.5,8.8,45.0,top,C25,,,C_0402_1005Metric,100n,smt
+20.9,12.8,-45.0,top,C26,,,C_0402_1005Metric,100n,smt
+24.7,3.5,-45.0,top,C27,,,C_0402_1005Metric,100n,smt
+23.4,2.8,-135.0,top,C28,,,C_0402_1005Metric,100n,smt
+23.95,2.25,-135.0,top,C29,,,C_0402_1005Metric,1u,smt
+23.12,-8.0,180.0,bottom,C3,,,C_0402_1005Metric,1u,smt
+20.45,-7.25,0.0,top,C30,,,C_0402_1005Metric,1u,smt
+21.0,-2.25,180.0,top,C31,,,C_0402_1005Metric,1u,smt
+-18.95,11.35,180.0,top,C32,,,C_0402_1005Metric,100n,smt
+22.48,18.31,180.0,top,C33,,,C_0402_1005Metric,100n,smt
+24.85,-7.0,0.0,top,C34,,,C_0805_2012Metric,22µ 16V,smt
+10.9,-22.7,-90.0,top,C35,,,C_1206_3216Metric,10µ 50V,smt
+21.17,-21.05,180.0,top,C36,,,C_0402_1005Metric,2.7n,smt
+12.8,-17.85,180.0,top,C37,,,C_0402_1005Metric,100n,smt
+19.72,-21.6,90.0,top,C38,,,C_0402_1005Metric,DNP,smt
+27.2,-3.3,90.0,top,C39,,,C_0402_1005Metric,100p,smt
+-18.05,16.1,0.0,top,C4,,,C_0402_1005Metric,100n,smt
+20.2,-23.0,180.0,top,C40,,,C_0402_1005Metric,DNP,smt
+16.1,-16.8,180.0,top,C41,,,C_0805_2012Metric,22µ 16V,smt
+24.625,0.05,180.0,top,C42,,,C_0805_2012Metric,22µ 16V,smt
+16.095,-15.2,180.0,top,C43,,,C_0805_2012Metric,22µ 16V,smt
+24.627382,-1.425,180.0,top,C44,,,C_0805_2012Metric,22µ 16V,smt
+16.095,-13.6,180.0,top,C45,,,C_0805_2012Metric,22µ 16V,smt
+24.8,23.0,-90.0,top,C46,,,C_0402_1005Metric,1u,smt
+24.85,21.17,90.0,top,C47,,,C_0402_1005Metric,1u,smt
+11.1,-13.2,0.0,top,C48,,,C_0402_1005Metric,1u,smt
+12.7,-13.175,180.0,top,C49,,,C_0402_1005Metric,1u,smt
+-17.91,23.35,0.0,top,C5,,,C_0402_1005Metric,100n,smt
+-13.6,16.50125,-90.0,top,C50,,,C_0402_1005Metric,1u,smt
+-13.6,14.70125,90.0,top,C51,,,C_0402_1005Metric,1u,smt
+-21.8,4.1,180.0,top,C6,,,C_0402_1005Metric,100n,smt
+-18.75,0.96,90.0,top,C7,,,C_0402_1005Metric,100n,smt
+16.1,-12.0,180.0,top,C8,,,C_0805_2012Metric,22µ 16V,smt
+16.1,-10.4,180.0,top,C9,,,C_0805_2012Metric,22µ 16V,smt
+-17.8,-9.9,90.0,bottom,D1,,,D_SMA,SMAJ24A,smt
+-22.0,16.9,0.0,top,D10,,,D_SOD-323F,PMEG6010CEJ,smt
+8.5,22.5,-90.0,bottom,D11,,,LED_0402_1005Metric,LED_R,smt
+26.8,2.5,-90.0,top,D13,,,LED_0402_1005Metric,LED_B,smt
+26.75,8.85,180.0,top,D14,,,LED_0402_1005Metric,LED_G,smt
+26.75,9.7,180.0,top,D15,,,LED_0402_1005Metric,LED_R,smt
+26.15,17.7,0.0,bottom,D17,,,LED_0402_1005Metric,LED_R,smt
+12.9,-10.4,90.0,bottom,D18,,,LED_0402_1005Metric,LED_R,smt
+-13.34,16.19,-90.0,bottom,D19,,,LED_0402_1005Metric,LED_R,smt
+-20.0,19.1,-90.0,top,D2,,,D_SOD-323_HandSoldering,"BAS416,115",smt
+12.1,21.5,90.0,top,D3,,,D_SMA,SMAJ24A,smt
+-14.8,-21.5,-90.0,top,D4,,,D_SMA,SMAJ24A,smt
+-15.0,-0.66,-90.0,top,D7,,,D_SOD-323_HandSoldering,"BAS416,115",smt
+-13.15,-0.66,-90.0,top,D8,,,D_SOD-323_HandSoldering,"BAS416,115",smt
+-18.46,4.01,0.0,top,D9,,,D_SOD-323,"PMEG6010CEJ,115",smt
+-17.8,-15.1,90.0,bottom,F1,,,R_1206_3216Metric,3413.0328.24,smt
+25.0,-22.0,180.0,bottom,H2,,,Mounting_Wuerth_WA-SMSI-M3_H1mm_9774010360,MountingHole,smt
+-25.0,22.0,180.0,bottom,H4,,,Mounting_Wuerth_WA-SMSI-M3_H1mm_9774010360,MountingHole,smt
+-22.5,-11.5,-90.0,top,J1,,,1-1827654-1,1-1827654-1,tht
+30.1,22.1,-90.0,bottom,J10,,,PinSocket_2x02_P1.27mm_Vertical_SMD,CLP-102-02-F-D,smt
+11.5,-15.29,90.0,bottom,J11,,,PinSocket_2x02_P1.27mm_Vertical_SMD,CLP-102-02-F-D,smt
+-15.75,-12.55,-90.0,top,J12,,,JST_GH_BM06B-GHS-TBT_1x06-1MP_P1.25mm_Vertical,BM05B-GHS-TBT,smt
+-11.5,15.29,-90.0,bottom,J13,,,PinSocket_2x02_P1.27mm_Vertical_SMD,CLP-102-02-F-D,smt
+17.3,22.4,0.0,top,J2,,,JST_GH_BM03B-GHS-TBT_1x03-1MP_P1.25mm_Vertical,BM03B-GHS-TBT,smt
+24.3,15.3,0.0,top,J3,,,JST_GH_BM03B-GHS-TBT_1x03-1MP_P1.25mm_Vertical,BM03B-GHS-TBT,smt
+17.1,15.3,0.0,top,J5,,,JST_GH_BM03B-GHS-TBT_1x03-1MP_P1.25mm_Vertical,BM03B-GHS-TBT,smt
+14.0,20.31,90.0,bottom,J8,,,PinSocket_2x05_P1.27mm_Vertical_SMD,CLP-105-02-F-D,smt
+-14.0,-20.31,-90.0,bottom,J9,,,PinSocket_2x05_P1.27mm_Vertical_SMD,CLP-105-02-F-D,smt
+-24.91,7.35,180.0,top,L1,,,L_Sunlord_SWPA5040S,SRN5040-220M,smt
+21.25,-14.25,180.0,top,L2,,,L_Bourns_SRN6045TA,SRN6045TA-3R3Y,smt
+-19.05,16.85,0.0,bottom,Q1,,,PowerPAK_SO-8_Single,SiR180ADP,smt
+-24.5,-8.7,-90.0,bottom,Q5,,,PowerPAK_SO-8_Single,SiR180ADP,smt
+-24.5,-1.18,90.0,bottom,Q6,,,PowerPAK_SO-8_Single,SiR180ADP,smt
+22.15,-0.8,90.0,top,R1,,,R_0402_1005Metric,1k,smt
+12.9,15.1,-90.0,top,R10,,,R_0402_1005Metric,10k,smt
+-15.59,6.87,-90.0,top,R11,,,R_0402_1005Metric,147k,smt
+-15.0,-0.66,-90.0,top,R12,,,R_0402_1005Metric,DNP,smt
+12.55,2.1,-90.0,top,R13,,,R_0402_1005Metric,1k,smt
+-16.63,6.87,-90.0,top,R14,,,R_0402_1005Metric,10k,smt
+9.6,21.6,90.0,bottom,R15,,,R_0402_1005Metric,10k,smt
+24.6,1.6,-135.0,top,R16,,,R_0402_1005Metric,0R,smt
+26.8,0.5,90.0,top,R17,,,R_0402_1005Metric,1k,smt
+25.2,8.85,0.0,top,R18,,,R_0402_1005Metric,1k,smt
+25.15,9.75,0.0,top,R19,,,R_0402_1005Metric,1k,smt
+19.7,21.2,90.0,bottom,R2,,,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,DNP,smt
+24.3,18.9,-90.0,top,R20,,,R_0402_1005Metric,33k,smt
+14.0,-12.4,-90.0,top,R21,,,R_0402_1005Metric,150k,smt
+-11.9,13.5,0.0,top,R22,,,R_0402_1005Metric,150k,smt
+-17.06,1.01,90.0,top,R24,,,R_0402_1005Metric,100k,smt
+26.2,18.55,0.0,bottom,R27,,,R_0402_1005Metric,1k,smt
+13.9,-10.4,90.0,bottom,R28,,,R_0402_1005Metric,1k,smt
+-13.34,14.52,90.0,bottom,R29,,,R_0402_1005Metric,1k,smt
+19.4,12.5,-90.0,top,R3,,,R_0402_1005Metric,100k,smt
+-21.66,7.14,90.0,top,R4,,,R_0402_1005Metric,100k,smt
+-26.43,2.43,180.0,top,R5,,,R_0402_1005Metric,100k,smt
+13.8,10.55,180.0,top,R52,,,R_0402_1005Metric,10k,smt
+-24.7,16.52,-90.0,bottom,R55,,,R_Axial_Power_L38.0mm_W6.4mm_P40.64mm,AC07000002008JAC00,tht
+-20.2,12.3,0.0,bottom,R56,,,R_2512_6332Metric,WSLF25122L000FEA,smt
+13.45,-23.85,0.0,top,R57,,,R_0402_1005Metric,200k,smt
+21.22,-22.1,0.0,top,R58,,,R_0402_1005Metric,15.8k,smt
+27.2,-5.115,-90.0,top,R59,,,R_0402_1005Metric,22k1,smt
+-25.63,3.83,0.0,top,R6,,,R_0402_1005Metric,10R,smt
+20.22,-23.85,180.0,top,R60,,,R_0402_1005Metric,115k,smt
+18.3,-24.0,180.0,top,R61,,,R_0402_1005Metric,22.1k,smt
+25.15,10.6,0.0,top,R62,,,R_0402_1005Metric,330k,smt
+26.5,12.65,-90.0,top,R63,,,R_0402_1005Metric,330k,smt
+11.45,2.1,90.0,top,R64,,,R_0402_1005Metric,330k,smt
+11.1,-9.0,0.0,top,R65,,,R_0402_1005Metric,330k,smt
+13.7,3.56,180.0,top,R66,,,R_0402_1005Metric,330k,smt
+13.97,2.08,90.0,top,R67,,,R_0402_1005Metric,330k,smt
+20.25,-0.8,90.0,top,R7,,,R_0402_1005Metric,100k,smt
+21.225,-0.8,-90.0,top,R8,,,R_0402_1005Metric,10k,smt
+12.9,17.4,-90.0,top,R9,,,R_0402_1005Metric,100k,smt
+19.3,2.2,0.0,bottom,U1,,,XCVR_E01-2G4M27SX,E01-2G4M27S,smt
+15.6,-20.85,0.0,top,U10,,,SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm,AP64500SP-13,smt
+24.675,-4.125,180.0,top,U11,,,Converter_DCDC_Cyntec_MUN12AD01-SH,MUN12AD01-SH,smt
+26.3,22.1,90.0,top,U12,,,WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm_ThermalVias,TPS25200DRVR,smt
+12.01,-11.34,180.0,top,U13,,,WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm_ThermalVias,TPS25200DRVR,smt
+-12.0,15.5,90.0,top,U14,,,WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm_ThermalVias,TPS25200DRVR,smt
+-18.95,13.4,0.0,top,U2,,,MSOP-8_3x3mm_P0.65mm,AD8418BRMZ,smt
+-22.35,1.6,180.0,top,U3,,,MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm,LTC7004EMSE,smt
+-17.43,19.72,90.0,top,U4,,,MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm,LTC7004EMSE,smt
+20.9,-4.8,90.0,top,U5,,,SOT-23-5,LP2980AIM5X-3.0/NOPB,smt
+19.2,6.6,45.0,top,U6,,,LQFP-48_7x7mm_P0.5mm,STM32G431CBT6,smt
+-19.19,6.7,180.0,top,U7,,,SOT-23-6,LV2862YDDCT,smt
+22.49,20.58,90.0,top,U9,,,SOT-23-8,TCAN330GDCNT,smt
