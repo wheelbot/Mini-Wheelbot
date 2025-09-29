@@ -11,22 +11,24 @@
 ## Motors
 | Item | Description | Qty | Vendor |
 | ---- | ---- | --- | --- |
-| Motors | T-Motor MN4006 KV380 | 2 (sold as 1 set) | [T-Motor](https://store.tmotor.com/product/mn4006-kv380-motor-antigravity-type.html) |
+| Motors | T-Motor MN4006 KV380[^1] | 2 (sold as 1 set) | [T-Motor](https://store.tmotor.com/product/mn4006-kv380-motor-antigravity-type.html) |
 | Encoder magnet | N35SH D=6mm t=2.5mm | 2 | [DigiKey](https://www.digikey.de/de/products/detail/radial-magnets-inc/9049/6030786) | 
 | O-Ring | 56mm x 2mm NBR90 | 2 (get some spare!) | Maybe [McMaster](https://www.mcmaster.com/1247N172/) |
+
+[^1]: Theres a new [T-Motor MN4006 KV380 **EVO**](https://store.tmotor.com/de/product/mn4006-EVO-kv380-motor-antigravity-type.html) version of the motor with 150C temperature rated magnets, which I highly recommend using in new builds, however the tolerances in the flywheel are slightly different. The existing flywheel inner diameter is too large, which can only partially compensated by epoxy.
 
 ## Custom PCBs
 | Item | Description | Qty | Vendor |
 | ---- | ---- | --- | --- |
-| [Power Distribution](electronics/schematic/power-distribution.pdf) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| [Motor Controller](electronics/schematic/micro-motor.pdf) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 2 | [http://pcbway.com/](http://pcbway.com/) |
-| [Flex PCB IMU 1](electronics/schematic/imu-flex.pdf) | 2 layer, 0.1mm, FR4 Stiffener | 1 | [http://pcbway.com/](http://pcbway.com/) | 
-| [Flex PCB IMU 2](electronics/schematic/imu-flex.pdf) | 2 layer, 0.1mm, FR4 Stiffener | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| [Compute Carrier](electronics/schematic/compute-carrier.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| [Cell Protection](electronics/schematic/cell-protection.pdf) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| Cell Adapter | 2 layer, 1.6mm, 2x press fit holes! | 2 | [http://pcbway.com/](http://pcbway.com/) |
-| 3-phase cable extension | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| [Encoder](electronics/schematic/encoder.pdf) | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) | 
+| Power Distribution [schematics](electronics/schematic/power-distribution.pdf), [gerbers](electronics/gerbers/power-distribution/power-distribution-v1.kicad_pcb_gerber.zip) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| Motor Controller [schematics](electronics/schematic/micro-motor.pdf), [gerbers](electronics/gerbers/micro-motor-wb/micro-motor-v2.2WB.kicad_pcb_gerber.zip) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 2 | [http://pcbway.com/](http://pcbway.com/) |
+| Flex PCB IMU 1 [schematics](electronics/schematic/imu-flex.pdf), [gerbers](electronics/gerbers/imu-flex-1/imu-flex-1-v1.kicad_pcb_gerber.zip) | 2 layer, 0.1mm, [FR4 Stiffener on frontside](electronics/gerbers/imu-flex-1/imu-flex-1-v1-stiffener_on_front.png) | 1 | [http://pcbway.com/](http://pcbway.com/) | 
+| Flex PCB IMU 2 [schematics](electronics/schematic/imu-flex.pdf), [gerbers](electronics/gerbers/imu-flex-1/imu-flex-2-v1.kicad_pcb_gerber.zip) | 2 layer, 0.1mm, [FR4 Stiffener on backside](electronics/gerbers/imu-flex-2/imu-flex-2-v1-stiffener_on_back.png) | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| Compute Carrier [schematics](electronics/schematic/compute-carrier.pdf), [gerbers](electronics/gerbers/computecarrier/computecarrier-v1.kicad_pcb_gerber.zip) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| Cell Protection [schematics](electronics/schematic/cell-protection.pdf), [gerbers](electronics/gerbers/cell-protection/cell-protection-v1.kicad_pcb_gerber.zip) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| Cell Adapter [gerbers](electronics/gerbers/cell-adapter/cell-adapter-v1.kicad_pcb_gerber.zip) | 2 layer, 1.6mm, 2x press fit holes! | 2 | [http://pcbway.com/](http://pcbway.com/) |
+| 3-phase cable extension [gerbers](electronics/gerbers/motorcon/motorcon-v1.kicad_pcb_gerber.zip) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| Encoder [schematics](electronics/schematic/encoder.pdf), [gerbers](electronics/gerbers/encoder/encoder-v1.kicad_pcb_gerber.zip) | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) | 
 
 ## Battery Pack
 | Item | Description | Qty | Vendor |
