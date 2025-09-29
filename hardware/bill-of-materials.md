@@ -11,11 +11,11 @@
 ## Motors
 | Item | Description | Qty | Vendor |
 | ---- | ---- | --- | --- |
-| Motors | T-Motor MN4006 KV380[^1] | 2 (sold as 1 set) | [T-Motor](https://store.tmotor.com/product/mn4006-kv380-motor-antigravity-type.html) |
+| Motors | T-Motor MN4006 KV380 (see note below) | 2 (sold as 1 set) | [T-Motor](https://store.tmotor.com/product/mn4006-kv380-motor-antigravity-type.html) |
 | Encoder magnet | N35SH D=6mm t=2.5mm | 2 | [DigiKey](https://www.digikey.de/de/products/detail/radial-magnets-inc/9049/6030786) | 
 | O-Ring | 56mm x 2mm NBR90 | 2 (get some spare!) | Maybe [McMaster](https://www.mcmaster.com/1247N172/) |
 
-[^1]: Theres a new [T-Motor MN4006 KV380 **EVO**](https://store.tmotor.com/de/product/mn4006-EVO-kv380-motor-antigravity-type.html) version of the motor with 150C temperature rated magnets, which I highly recommend using in new builds, however the tolerances in the flywheel are slightly different. The existing flywheel inner diameter is too large, which can only partially compensated by epoxy.
+**Note on the motors**: There is a new [T-Motor MN4006 KV380 **EVO**](https://store.tmotor.com/de/product/mn4006-EVO-kv380-motor-antigravity-type.html) version of the motor with 150C temperature rated magnets, which I highly recommend using in new builds, however the tolerances in the flywheel are slightly different. The existing flywheel inner diameter is too large, which can only partially compensated by epoxy.
 
 ## Custom PCBs
 | Item | Description | Qty | Vendor |
