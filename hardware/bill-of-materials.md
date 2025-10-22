@@ -20,8 +20,8 @@
 ## Custom PCBs
 | Item | Description | Qty | Vendor |
 | ---- | ---- | --- | --- |
-| Power Distribution [schematics](electronics/schematic/power-distribution.pdf), [gerbers](electronics/gerbers/power-distribution/power-distribution-v1.kicad_pcb_gerber.zip) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 1 | [http://pcbway.com/](http://pcbway.com/) |
-| Motor Controller [schematics](electronics/schematic/micro-motor.pdf), [gerbers](electronics/gerbers/micro-motor-wb/micro-motor-v2.2WB.kicad_pcb_gerber.zip) | 4 layer, 1.6mm, 3/3 mil spacing, 0.15mm min hole | 2 | [http://pcbway.com/](http://pcbway.com/) |
+| Power Distribution [schematics](electronics/schematic/power-distribution.pdf), [gerbers](electronics/gerbers/power-distribution/power-distribution-v1.kicad_pcb_gerber.zip) | 4 layer, 1.6mm, 5/5 mil spacing, 0.2mm min hole | 1 | [http://pcbway.com/](http://pcbway.com/) |
+| Motor Controller [schematics](electronics/schematic/micro-motor.pdf), [gerbers](electronics/gerbers/micro-motor-wb/micro-motor-v2.2WB.kicad_pcb_gerber.zip) | 4 layer, 1.6mm, 5/5 mil spacing, 0.2mm min hole | 2 | [http://pcbway.com/](http://pcbway.com/) |
 | Flex PCB IMU 1 [schematics](electronics/schematic/imu-flex.pdf), [gerbers](electronics/gerbers/imu-flex-1/imu-flex-1-v1.kicad_pcb_gerber.zip) | 2 layer, 0.1mm, [FR4 Stiffener on frontside](electronics/gerbers/imu-flex-1/imu-flex-1-v1-stiffener_on_front.png), [max. dimensions 52x73.5mm](electronics/gerbers/imu-flex-1/imu-flex-1-v1-dimensions.png) | 1 | [http://pcbway.com/](http://pcbway.com/) | 
 | Flex PCB IMU 2 [schematics](electronics/schematic/imu-flex.pdf), [gerbers](electronics/gerbers/imu-flex-2/imu-flex-2-v1.kicad_pcb_gerber.zip) | 2 layer, 0.1mm, [FR4 Stiffener on backside](electronics/gerbers/imu-flex-2/imu-flex-2-v1-stiffener_on_back.png), [max. dimensions 59x67.158mm](electronics/gerbers/imu-flex-2/imu-flex-2-v1-dimensions.png) | 1 | [http://pcbway.com/](http://pcbway.com/) |
 | Compute Carrier [schematics](electronics/schematic/compute-carrier.pdf), [gerbers](electronics/gerbers/computecarrier/computecarrier-v1.kicad_pcb_gerber.zip) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
