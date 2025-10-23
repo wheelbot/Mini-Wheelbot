@@ -4,7 +4,7 @@
 ## CNC Parts
 | Item | Description | Qty | Vendor |
 | ---- | ---- | --- | --- |
-| [Frame](mechanical/step/frame.step) | ISO 2768 medium, material aluminium 6061 or 6081, 8x M3 and 4x M2.5 Threads | 1 | [https://xometry.eu](https://xometry.eu) |
+| [Frame](mechanical/step/frame.stp) | ISO 2768 medium, material aluminium 6061 or 6081, 8x M3 and 4x M2.5 Threads | 1 | [https://xometry.eu](https://xometry.eu) |
 | [Wheel](mechanical/step/reactionwheel.stp) |  ISO 2768 fine, material brass MS58, one surface to H5 tolerance | 2 | [https://xometry.eu](https://xometry.eu) |
 | [Lid](mechanical/step/lid.stp) | ISO 2768 medium, material aluminium 6061 or 6081 | 2 | [https://xometry.eu](https://xometry.eu) |
 
@@ -80,4 +80,4 @@
 | [Battery lid](mechanical/meshes/battery_back.stl) | PETG or other high-temp filament, NO PLA | 1 | |
 | [Internal frame 1](mechanical/step/electronics_frame_split_1.stp), can be printed in two pieces [a](mechanical/meshes/electronics_frame_split_1-a.stl) and [b](mechanical/meshes/electronics_frame_split_1-b.stl) and glued | PETG or other high-temp filament, NO PLA | 1 | |
 | [Internal frame 2](mechanical/step/electronics_frame_split_2.stp), can be printed in two pieces [a](mechanical/meshes/electronics_frame_split_2-a.stl) and [b](mechanical/meshes/electronics_frame_split_2-b.stl) and glued | PETG or other high-temp filament, NO PLA | 1 | |
-| Magnet holder | PETG or other high-temp filament, NO PLA | 1 | |
+| [Magnet holder](mechanical/meshes/magnet_adapter.stl) | PETG or other high-temp filament, NO PLA | 1 | |
