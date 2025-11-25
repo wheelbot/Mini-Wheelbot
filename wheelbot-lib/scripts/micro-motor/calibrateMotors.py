@@ -1,4 +1,5 @@
 import can
+import sys
 import time
 
 bus = can.interface.Bus(channel='motorCan', bustype='socketcan')
@@ -111,61 +112,100 @@ try:
     # -------------------------------------
     # 4. Wait for calibration to finish
     # -------------------------------------
-    print("[INFO] Calibrating cogging compensation...")
+    print("[INFO] Calibrating cogging compensation. This can take several minutes.")
     print("[INFO] Waiting for cogging calibration to complete...")
+
+    # Track previous YY to detect sweep transitions
+    prev_progress = {board: 0 for board in boards}
+    sweep_index   = {board: 0 for board in boards}   # 0 or 1
+
+    # Print 3 blank lines to reserve the screen space to update
+    print("\n" * 3)
 
     while True:
         status = []
         for board in boards:
             s = read_special_action_status(board)
             if s is None:
-                print(f"[WARN] No status reply from board {board}. Retrying...")
-                status.append((None, None))
-                continue
+                s = (None, None)
             status.append(s)
 
-        # Each status is (XX, YY)
         xx_values = [s[0] for s in status]
 
-        # Print status meaning for each board
+        # Prepare per-board output lines
+        board_lines = {}
         for (board, (xx, yy)) in zip(boards, status):
+
             if xx is None:
-                print(f"[WARN] Board {board}: No data")
+                board_lines[board] = "No data"
                 continue
 
-            if xx == 0x06:
-                print(f"[INFO] Board {board}: Status 06 (Calibration running)")
-            elif xx == 0x07:
-                print(f"[INFO] Board {board}: Status 07 (Calibration success)")
-            elif xx == 0x08:
-                print(f"[ERROR] Board {board}: Status 08 (Calibration failed)")
-            elif xx == 0x09:
-                print(f"[ERROR] Board {board}: Status 09 (Calibration aborted)")
-            else:
-                print(f"[INFO] Board {board}: Status {xx:02X} (Unknown)")
+            # Decode status
+            if xx == 0x06:   text = "Calibration running"
+            elif xx == 0x07: text = "Calibration success"
+            elif xx == 0x08: text = "Calibration failed"
+            elif xx == 0x09: text = "Calibration aborted"
+            else:            text = f"Unknown status {xx:02X}"
 
-        # Abort if any board reports failure
+            if yy is not None:
+                local_progress = yy / 0xFE
+
+                # Detect start of second sweep
+                if yy < prev_progress[board] * 0xFE * 0.5:
+                    sweep_index[board] = 1
+
+                prev_progress[board] = local_progress
+
+                total_progress = (sweep_index[board] + local_progress) / 2
+                total_percent = int(total_progress * 100)
+
+                board_lines[board] = (
+                    f"{text}; sweep={sweep_index[board]+1}/2; "
+                    f"sweep progress={int(local_progress*100)}%; "
+                    f"total progress={total_percent}%"
+                )
+            else:
+                board_lines[board] = f"{text}; progress=N/A"
+
+        # ------------------------------
+        # Failure / success conditions
+        # ------------------------------
         if any(x == 0x08 for x in xx_values):
             print("[ERROR] Calibrating the cogging compensation failed.")
             raise SystemExit
 
-        # Abort if any board reports abort
         if any(x == 0x09 for x in xx_values):
             print("[ERROR] Calibration aborted by motor.")
             raise SystemExit
 
-        # Success only if both are done
         if all(x == 0x07 for x in xx_values):
             print("[INFO] Calibration successful for all motors!")
             break
 
-        # Otherwise still running
-        print("[INFO] Calibration still running...")
-        time.sleep(5)
+        # ------------------------------
+        # Reprint SAME 3 lines in place
+        # ------------------------------
+
+        # Move cursor back UP 3 lines
+        print("\033[3F", end="")
+
+        # Line 1: summary
+        print("\033[K[INFO] Calibration still running...")
+
+        # Line 2: board 1
+        b1 = boards[0]
+        print(f"\033[K[INFO] Board {b1}: {board_lines[b1]}")
+
+        # Line 3: board 2
+        b2 = boards[1]
+        print(f"\033[K[INFO] Board {b2}: {board_lines[b2]}")
+
+        sys.stdout.flush()
+        time.sleep(0.5)
 
 
     # -------------------------------------
-    # 5. Final steps
+    # 5. Finalization commands
     # -------------------------------------
     print("[INFO] Sending finalization commands...")
     print("[INFO] Enabling cogging compensation...")

@@ -94,7 +94,8 @@ cansend motorCan 021#11
 cansend motorCan 022#11
 ```
 
-Now wait **12 seconds** — the script does this automatically.
+Now wait **12 seconds** - the script does this automatically.
+Motors will move! Ensure no obstacles and that the wheels can move freely.
 
 ---
 
@@ -107,7 +108,8 @@ cansend motorCan 021#12
 cansend motorCan 022#12
 ```
 
-Motors will move — ensure no obstacles or load are attached.
+This step can take several minutes.
+Motors will move! Ensure no obstacles and that the wheels can move freely.
 
 ---
 
