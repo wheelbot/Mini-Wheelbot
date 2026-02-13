@@ -28,20 +28,12 @@ constexpr
 Configuration::BldcMotorParameters mn4006Parameters{
 	.inductance = 80.e-6f,
 	.resistance = 150.e-3f,
-	.electrical_per_mechanical_rev = 12.f};
-
-constexpr
-Configuration::CurrentSenseParameters wbPcb{
-	.reference_voltage = 3.0f,
-	.amp_gain=20,
-	.adc_resolution=float(1<<12),
-	.shunt_resistance=3.e-3f};
-
-constexpr
-Configuration::ControlLoopParameters controlLoopParameters{
-	.current_control_loop_rate = 83.e3f/2.f,
-	.bandwidth= 5000.f,
+	.electrical_per_mechanical_rev = 12.f,
+	.control_bandwidth= 5000.f,
+	.cogging_correction_factor=1.2f,
+	.initialized=true
 };
+
 
 extern modm::Fiber<16000> fiber_control_thread_calibration;
 class ControlThread
@@ -64,10 +56,14 @@ public:
 			fiber_control_thread_calibration.start();
 		}
 
-		if ((config.encoder.corrupted_data_counter) > 10'000 || ( config.encoder.not_connected_counter > 40'000 )){
+		if (
+			(config.encoder.corrupted_data_counter.load(std::memory_order_relaxed)) > 10'000
+			||
+			( config.encoder.not_connected_counter.load(std::memory_order_relaxed) > 40'000 )
+		){
 			MODM_LOG_WARNING << "Aborting due to high corrupted encoder counter: "
 				<< config.encoder.corrupted_data_counter.load(std::memory_order_relaxed) << " or high not connected counter: "
-				<< config.encoder.not_connected_counter << modm::endl;
+				<< config.encoder.not_connected_counter.load(std::memory_order_relaxed) << modm::endl;
 			config.foc.foc_state = Configuration::FocState::Disable;
 			config.special_action = Configuration::SpecialActions::Abort;
 			Board::Motor::setCompareValue(0);
@@ -92,10 +88,6 @@ public:
 	void
 	initialize_gate_driver(bool calibrate_current_offset = true)
 	{
-		config.update_motor_parameters(mn4006Parameters);
-		config.update_current_sense_parameters(wbPcb);
-		config.update_control_loop_parameters(controlLoopParameters);
-
 		Board::MotorBridge::GateDriverEnable::set();
 		modm::Drv832xSpi<Board::MotorBridge::GateDriver::Spi, Board::MotorBridge::GateDriver::Cs> gateDriver;
 		RF_CALL_BLOCKING(gateDriver.initialize());
@@ -125,13 +117,13 @@ public:
 		}
 
 		main_configuration.encoder.reset = true;
-		librobots2::motor::setSvmOutputMagnitudeAngle<Board::Motor>(0.1, 0);
-		modm::delay_ms(1000);
-		main_configuration.persistent_data.phase_offset = main_configuration.encoder.position;
-		MODM_LOG_DEBUG << "\nNaive encoder calibration would be :" << main_configuration.persistent_data.phase_offset << modm::endl << modm::endl;
+		// librobots2::motor::setSvmOutputMagnitudeAngle<Board::Motor>(0.1, 0);
+		// modm::delay_ms(1000);
+		// main_configuration.persistent_data.phase_offset = main_configuration.encoder.position;
+		// MODM_LOG_DEBUG << "\nNaive encoder calibration would be :" << main_configuration.persistent_data.phase_offset << modm::endl << modm::endl;
 
 		librobots2::motor::setSvmOutputMagnitudeAngle<Board::Motor>(0, 0);
-		modm::delay_ms(100);
+		// modm::delay_ms(100);
 		MODM_LOG_DEBUG << "Compare value after librobots2::motor::setSvmOutputMagnitudeAngle<Board::Motor>(0, 0):  ";
 		MODM_LOG_DEBUG << " U: " << Board::Motor::MotorTimer::getCompareValue(1);
 		MODM_LOG_DEBUG << " V: " << Board::Motor::MotorTimer::getCompareValue(2);
@@ -190,7 +182,7 @@ public:
 					else if(rr == retries-1){
 						MODM_LOG_INFO << "Cogging torque calibration failed in step " << ii << " after " << rr << " retries." << modm::endl;
 						MODM_LOG_INFO << "Variance was " << variance << modm::endl;
-						config.print_encoder();
+						config.print_persistent_data();
 						config.special_action = Configuration::SpecialActions::CoggingCalibrationFail;
 						return;
 					}

@@ -28,13 +28,13 @@ raw_encoder_to_electric_aligned_degrees(const Configuration& config, const int32
     {
         return -float{
                 (raw_value - config.persistent_data.phase_offset)
-            }* config.encoder.degrees_per_tick;
+            }* config.encoder.degrees_per_tick.load(std::memory_order_relaxed);
     }
     else
     {
         return float{
                 (raw_value -  config.persistent_data.phase_offset )
-            } * config.encoder.degrees_per_tick;
+            } * config.encoder.degrees_per_tick.load(std::memory_order_relaxed);
     }
 }
 
@@ -45,19 +45,21 @@ void updateEncoder(const uint16_t raw_candidate){
 
     // check parity bit, this is AS5047 specific
     if ( !checkMsbEvenParity(raw_candidate) ){
-        main_configuration.encoder.corrupted_data_counter += 1;
+        main_configuration.encoder.corrupted_data_counter.fetch_add(1, std::memory_order_relaxed);
         return; // nothing to do, data is corrupt
     }
-    if (enc.corrupted_data_counter > 0) enc.corrupted_data_counter-=1;
+    if (enc.corrupted_data_counter.load(std::memory_order_relaxed) > 0)
+        enc.corrupted_data_counter.fetch_add(-1, std::memory_order_relaxed);
 
     // check 0xffff or 0x000
     if ( ( raw_candidate == 0x0000 ) || ( raw_candidate == 0xffff )
         // || ( (raw_candidate & 0x3fff) == 0x0000 ) || ( (raw_candidate & 0x3fff) == 0xffff )
     ){
-        enc.not_connected_counter += 1;
+        enc.not_connected_counter.fetch_add(1, std::memory_order_relaxed);
         return; // nothing to do, data is corrupt
     }
-    if (enc.not_connected_counter > 0) enc.not_connected_counter-=1;
+    if (enc.not_connected_counter.load(std::memory_order_relaxed) > 0)
+        enc.not_connected_counter.fetch_add(-1, std::memory_order_relaxed);
 
 
     // if reset was requested
@@ -66,20 +68,20 @@ void updateEncoder(const uint16_t raw_candidate){
 
         // reset calibrated first to avoid race condition
         // enc.calibrated = false;
-        enc.corrupted_data_counter = 0; // increments every time corrupted or no data is read
-
-        enc.raw_value.store(static_cast<int16_t>(raw_candidate & 0x3fff), std::memory_order_relaxed);
-        enc.position.store(enc.raw_value, std::memory_order_relaxed);
-        enc.last_raw_value.store(enc.raw_value, std::memory_order_relaxed);
+        enc.corrupted_data_counter.store(0, std::memory_order_relaxed); // increments every time corrupted or no data is read
+        const auto raw_cand = static_cast<int16_t>(raw_candidate & 0x3fff);
+        enc.raw_value.store(raw_cand, std::memory_order_relaxed);
+        enc.position.store(raw_cand, std::memory_order_relaxed);
+        enc.last_raw_value.store(raw_cand, std::memory_order_relaxed);
         // enc.diff = 0;
         // MODM_LOG_DEBUG << "Encoder was reset!" << modm::endl;
     }
 
     // data is fine so we can get the value
-    enc.raw_value = static_cast<int16_t>(raw_candidate & 0x3fff);
+    enc.raw_value.store(static_cast<int16_t>(raw_candidate & 0x3fff), std::memory_order_relaxed);
 
 
-    int32_t diff = enc.raw_value - enc.last_raw_value;
+    int32_t diff = enc.raw_value.load(std::memory_order_relaxed) - enc.last_raw_value.load(std::memory_order_relaxed);
     if (diff > enc.resolution/2) { // Overflow handling
         diff -= enc.resolution;
     } else if (diff < -enc.resolution/2) { // Underflow handling
@@ -89,17 +91,19 @@ void updateEncoder(const uint16_t raw_candidate){
     enc.last_raw_value.store(enc.raw_value.load(std::memory_order_relaxed), std::memory_order_relaxed);
     if (main_configuration.persistent_data.inverted)
     {
-        enc.angle_degrees_aligned_with_electrical_frame =
+        enc.angle_degrees_aligned_with_electrical_frame.store(
             -float{
-                (enc.raw_value- main_configuration.persistent_data.phase_offset)
-            }* enc.degrees_per_tick;
+                (enc.raw_value.load(std::memory_order_relaxed) - main_configuration.persistent_data.phase_offset)
+            }* enc.degrees_per_tick.load(std::memory_order_relaxed),
+        std::memory_order_relaxed);
     }
     else
     {
-        enc.angle_degrees_aligned_with_electrical_frame =
+        enc.angle_degrees_aligned_with_electrical_frame.store(
             float{
-                (enc.raw_value - main_configuration.persistent_data.phase_offset )
-            } * enc.degrees_per_tick;
+                (enc.raw_value.load(std::memory_order_relaxed) - main_configuration.persistent_data.phase_offset )
+            } * enc.degrees_per_tick.load(std::memory_order_relaxed),
+            std::memory_order_relaxed);
     }
     return;
 }

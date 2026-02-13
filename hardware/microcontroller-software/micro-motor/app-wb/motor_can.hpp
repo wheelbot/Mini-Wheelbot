@@ -223,6 +223,15 @@ struct DiagnosticRequestToMotor{
 		ReturnSpecialActionStatus	= 0x46,
 		ReturnEncoderErrorCounter	= 0x47,
 
+		SetInductance				= 0x51, // second value is uint32_t is inductance in uH * 1000
+		SetResistance				= 0x52, // second value is uint32_t is resistance in mOhm * 1000
+		SetElectricalPerMechanicalRev = 0x53, // second value is uint32_t is electrical_per_mechanical_revs
+		SetControlBandwidth			= 0x54, // secind value is uint32_t is control bandwidth, must be in range 500..10000
+		SetCoggingFactor			= 0x55, // second value is uint32_t is cogging_factor*1000, must be in range 0.5...2.0
+
+		SetPosCtrlP					= 0x61, // second value is uint32_t is position_control P gain * 1000, must be range 0...10
+		SetPosCtrlD					= 0x62, // second value is uint32_t is position_control D gain * 1000, must be range 0...10
+		SetPosCtrlI					= 0x63, // second value is uint32_t is position_control I gain * 1000, must be range 0...10
 
 		EnableCoggingCompensation 	= 0x91,
 		DisableCoggingCompensation 	= 0x92,
@@ -250,11 +259,11 @@ CanMessage getCanMessage(std::optional<uint8_t> boardId)
 {
 	while(Fdcan::isMessageAvailable())
 	{
-		// MODM_LOG_INFO << "Got Message" << modm::endl;
 		modm::can::Message canMessage;
 		if (!Fdcan::getMessage(canMessage)) {
 			break;
 		}
+		// MODM_LOG_INFO << "Got Message: " << canMessage.getIdentifier() << "#" << canMessage.data << modm::endl;
 		if (boardId.has_value() && canMessage.getIdentifier() == uint32_t(Configuration::base_id + boardId.value()) && canMessage.getLength() == 2) {
 			TorqueToMotor data;
 			data.updateFromMessageData(canMessage.data);

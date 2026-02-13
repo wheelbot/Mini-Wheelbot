@@ -189,6 +189,7 @@ struct Motor {
 	using BridgeConfig = librobots2::motor::BridgeConfig;
 
 	static constexpr uint16_t MaxPwm{2047}; // 11 bit PWM
+	static constexpr float current_control_loop_rate = 170e6 / float{MaxPwm} / 2.f;
 
 	static inline void
 	setCompareValue(uint16_t compareValue)
@@ -415,6 +416,17 @@ namespace MotorCurrent {
 	static int16_t offset_V;
 	static int16_t offset_W;
 
+	static constexpr float reference_voltage = 3.0f;
+	static constexpr float amp_gain = 20;
+	static constexpr float adc_resolution = float(1<<12);
+	static constexpr float shunt_resistance = 3.e-3f;
+	static constexpr float phase_amp_per_adc_reading =
+	reference_voltage / (
+		shunt_resistance * amp_gain * adc_resolution
+	);
+	static constexpr float input_voltage_per_adc_reading = reference_voltage / adc_resolution * 21.f;
+
+
 	inline void setCurrentLimit(uint16_t limit) {
 		// Limit to 12 bit
 		DAC3->DHR12R1 = limit >> 4;
@@ -594,10 +606,10 @@ namespace Encoder {
 			Timer::setOverflow(Motor::MaxPwm*2);
 			Timer::applyAndReset();
 			// one timer increment is 1/170MHz = 11.76 ns is one clock cycle
-			Timer::configureOutputChannel(1, Timer::OutputCompareMode::Pwm, 1.6*Motor::MaxPwm);
-			Timer::configureOutputChannel(2, Timer::OutputCompareMode::Pwm, 1.6*Motor::MaxPwm+350);
-			Timer::configureOutputChannel(3, Timer::OutputCompareMode::Pwm, 1.6*Motor::MaxPwm+450);
-			Timer::configureOutputChannel(4, Timer::OutputCompareMode::Pwm, 1.6*Motor::MaxPwm+750);
+			Timer::configureOutputChannel(1, Timer::OutputCompareMode::Pwm, 1.4*Motor::MaxPwm);
+			Timer::configureOutputChannel(2, Timer::OutputCompareMode::Pwm, 1.4*Motor::MaxPwm+400);
+			Timer::configureOutputChannel(3, Timer::OutputCompareMode::Pwm, 1.4*Motor::MaxPwm+550);
+			Timer::configureOutputChannel(4, Timer::OutputCompareMode::Pwm, 1.4*Motor::MaxPwm+900);
 
 			// Timer::configureOutputChannel(1, Timer::OutputCompareMode::Pwm, static_cast<uint16_t>(MaxPwm/16));
 			// Timer::enableOutput();

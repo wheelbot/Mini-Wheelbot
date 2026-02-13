@@ -82,8 +82,18 @@ int main()
 	MODM_LOG_INFO << "\nWelcome to the Mini Wheelbot Motor Controller\n" << modm::endl;
 
 	control_thread.initialize_gate_driver();
-	if (check_auto_reload()){
+	if (check_auto_reload()==1){
 		load_from_flash();
+	}
+	if (main_configuration.check_config()){
+		main_configuration.update_foc_parameters();
+	}
+	else{
+		MODM_LOG_INFO << modm::endl;
+		MODM_LOG_INFO << "No motor config in persistent data! Using defaults!" << modm::endl;
+		MODM_LOG_INFO << modm::endl;
+		main_configuration.persistent_data.bldc_motor_parameters = mn4006Parameters;
+		main_configuration.update_foc_parameters();
 	}
 
 	fiber_can_thread_run.watermark_stack();

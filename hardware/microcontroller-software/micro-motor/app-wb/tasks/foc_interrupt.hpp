@@ -31,26 +31,26 @@ MODM_ISR(TIM1_UP_TIM16)
 	// Board::Encoder::As5047::Cs::reset();
 
 	// retrieve latest current and voltage measurements
-	main_configuration.foc.current_U   = int16_t{Board::MotorCurrent::AdcU::getValue()} - 0x7ff - Board::MotorCurrent::offset_U;
-	main_configuration.foc.current_V   = int16_t{Board::MotorCurrent::AdcV::getValue()} - 0x7ff - Board::MotorCurrent::offset_V;
-	main_configuration.foc.current_W   = int16_t{Board::MotorCurrent::AdcW::getValue()} - 0x7ff - Board::MotorCurrent::offset_W;
-	main_configuration.foc.voltage_Vin = int16_t{Board::MotorCurrent::AdcIn::getValue()};
+	const auto latest_current_U =  int16_t{Board::MotorCurrent::AdcU::getValue()} - 0x7ff - Board::MotorCurrent::offset_U;
+	const auto latest_current_V =  int16_t{Board::MotorCurrent::AdcV::getValue()} - 0x7ff - Board::MotorCurrent::offset_V;
+	const auto latest_current_W =  int16_t{Board::MotorCurrent::AdcW::getValue()} - 0x7ff - Board::MotorCurrent::offset_W;
+	const auto latest_voltage_Vin =int16_t{Board::MotorCurrent::AdcIn::getValue()};
 
 	// Transform to SI units, [A] and [V]
-	main_configuration.foc.current_U   =  main_configuration.foc.current_U * main_configuration.foc.phase_amp_per_adc_reading;
-	main_configuration.foc.current_V   =  main_configuration.foc.current_V * main_configuration.foc.phase_amp_per_adc_reading;
-	main_configuration.foc.current_W   =  main_configuration.foc.current_W * main_configuration.foc.phase_amp_per_adc_reading;
-	main_configuration.foc.voltage_Vin =  main_configuration.foc.voltage_Vin * main_configuration.foc.input_voltage_per_adc_reading;
+	main_configuration.foc.current_U.store(    latest_current_U * Board::MotorCurrent::phase_amp_per_adc_reading, std::memory_order_relaxed);
+	main_configuration.foc.current_V.store(    latest_current_V * Board::MotorCurrent::phase_amp_per_adc_reading, std::memory_order_relaxed);
+	main_configuration.foc.current_W.store(    latest_current_W * Board::MotorCurrent::phase_amp_per_adc_reading, std::memory_order_relaxed);
+	main_configuration.foc.voltage_Vin.store(  latest_voltage_Vin * Board::MotorCurrent::input_voltage_per_adc_reading, std::memory_order_relaxed);
 
 	// TODO: CHECK OVERCURRENT / OVEROLTAGE PANIC HERE !!!
 
 	if (main_configuration.foc.foc_state == Configuration::FocState::CurrentControl){
-		float angle_degrees = main_configuration.encoder.angle_degrees_aligned_with_electrical_frame;
+		float angle_degrees = main_configuration.encoder.angle_degrees_aligned_with_electrical_frame.load(std::memory_order_relaxed);
 		while(angle_degrees>180.f) angle_degrees-=360.f;
 		while(angle_degrees<-180.f) angle_degrees+=360.f;
 
 		if (main_configuration.foc.control_state == Configuration::ControlState::PositionControl){
-			float position_error = main_configuration.foc.posctrl.setpoint - angle_degrees;
+			float position_error = main_configuration.foc.posctrl.setpoint.load(std::memory_order_relaxed) - angle_degrees;
 			while(position_error>180.f) position_error-=360.f;
 			while(position_error<-180.f) position_error+=360.f;
 
@@ -73,7 +73,7 @@ MODM_ISR(TIM1_UP_TIM16)
 		const auto [current_A, current_B] = librobots2::motor::clarkeTransform(main_configuration.foc.current_U, main_configuration.foc.current_V, main_configuration.foc.current_W);
 
 		// get electrical angle from mechanical, unit is [deg]
-		const float electrical_angle_degrees = angle_degrees * main_configuration.bldc_motor_parameters.electrical_per_mechanical_rev;
+		const float electrical_angle_degrees = angle_degrees * main_configuration.persistent_data.bldc_motor_parameters.electrical_per_mechanical_rev;
 
 		// transform current to direct and quadrature frame, unit is [A]
 		// const auto [current_D, current_Q] = librobots2::motor::parkTransform(current_A, current_B, electrical_angle_degrees);
@@ -99,7 +99,7 @@ MODM_ISR(TIM1_UP_TIM16)
 			const auto idx_past = raw_encoder / 4;
 			const auto idx_next = idx_past+1 < 4096 ? idx_past+1 : idx_past+1-4096;
 
-			constexpr auto cogging_correction{1.3f};
+			const auto cogging_correction = main_configuration.persistent_data.bldc_motor_parameters.cogging_correction_factor;
 			const auto feedforward_magnitude_past = main_configuration.persistent_data.feedforward_cogging_torques[idx_past];
 			const auto feedforward_magnitude_next = main_configuration.persistent_data.feedforward_cogging_torques[idx_next];
 			const auto factor = float{(raw_encoder & 0x3)}/4.f;

@@ -105,23 +105,10 @@ struct Configuration{
 		float inductance;                           // [H] equivalent DC inductance
 		float resistance;                           // [Ohm] equivalent DC resistance
 		float electrical_per_mechanical_rev;    	// []
+		float control_bandwidth;
+		float cogging_correction_factor;
+		bool initialized{false};
 	};
-
-	struct CurrentSenseParameters{
-		float reference_voltage;            // [V]
-		float amp_gain;                     // [V/V]
-		float adc_resolution;               // []
-		float shunt_resistance;             // [Ohm]
-	};
-
-	struct ControlLoopParameters{
-		float current_control_loop_rate;    // [Hz]
-		float bandwidth;
-	};
-
-	BldcMotorParameters bldc_motor_parameters;
-	ControlLoopParameters control_loop_parameters;
-	CurrentSenseParameters current_sense_parameters;
 
     struct Encoder{
         uint16_t resolution = 0x3FFF+1; // [ticks/mechanicalrevolution] total number of encoder ticks per revolution
@@ -140,49 +127,93 @@ struct Configuration{
 
 	struct PersistentData{
 		uint8_t auto_reload{0}; // [true/false] first byte of persistent config, determines if rest of this struct is automatically loaded from flash at boot
+		BldcMotorParameters bldc_motor_parameters;
 		std::array<float, 4096> feedforward_cogging_torques{1.234,3,4540,6,7,78,0,0,0,0,0}; // [A] struct holding feedfoward compensation table for cogging, encoder resolution should be integer multiple of this
 		int16_t phase_offset{0}; // [ticks] offset between electrical and encoder
 		bool inverted{false}; // [true/false] if electrical is same as encoder direction
-		std::optional<uint8_t> board_id{std::nullopt}; // [1...7]
+		uint8_t board_id{0}; // [1...7]
 		bool use_cogging_compensation{false};
 	};
 	PersistentData persistent_data;
 
-	void update_motor_parameters(const BldcMotorParameters& new_params){
-		bldc_motor_parameters = new_params;
+	bool check_board_id(){
+		return persistent_data.board_id > 0 && persistent_data.board_id < 0x0F;
+	}
 
-	};
-
-	void update_control_loop_parameters(const ControlLoopParameters& new_params){
-		control_loop_parameters = new_params;
-		foc.loop_time = 1.f/control_loop_parameters.current_control_loop_rate;
-		const float p_gain = control_loop_parameters.bandwidth * bldc_motor_parameters.inductance;
-		const float plant_pole = bldc_motor_parameters.resistance / bldc_motor_parameters.inductance;
+	void update_foc_parameters(){
+		foc.loop_time = 1.f/Board::Motor::current_control_loop_rate;
+		const float p_gain = persistent_data.bldc_motor_parameters.control_bandwidth * persistent_data.bldc_motor_parameters.inductance;
+		const float plant_pole = persistent_data.bldc_motor_parameters.resistance / persistent_data.bldc_motor_parameters.inductance;
 		foc.P_gain = p_gain;
 		foc.I_gain = plant_pole * p_gain;
+
+		MODM_LOG_INFO << modm::endl;
+		MODM_LOG_INFO << "FOC Parameters updated:" << modm::endl;
+		MODM_LOG_INFO << "  Loop time: " << foc.loop_time.load() << " s" << modm::endl;
+		MODM_LOG_INFO << "  P_gain: " << p_gain << modm::endl;
+		MODM_LOG_INFO << "  Plant pole: " << plant_pole << modm::endl;
+		MODM_LOG_INFO << "  I_gain: " << foc.I_gain.load() << modm::endl;
+		MODM_LOG_INFO << "BLDC Motor Parameters:" << modm::endl;
+		MODM_LOG_INFO << "  Inductance: " << persistent_data.bldc_motor_parameters.inductance << " H" << modm::endl;
+		MODM_LOG_INFO << "  Resistance: " << persistent_data.bldc_motor_parameters.resistance << " Ohm" << modm::endl;
+		MODM_LOG_INFO << "  Electrical/Mechanical rev: " << persistent_data.bldc_motor_parameters.electrical_per_mechanical_rev << modm::endl;
+		MODM_LOG_INFO << "  Control bandwidth: " << persistent_data.bldc_motor_parameters.control_bandwidth << modm::endl;
+		MODM_LOG_INFO << "  Cogging correction factor: " << persistent_data.bldc_motor_parameters.cogging_correction_factor << modm::endl;
+		MODM_LOG_INFO << "  Initialized: " << persistent_data.bldc_motor_parameters.initialized << modm::endl;
+		MODM_LOG_INFO << modm::endl;
 	};
 
-	void update_current_sense_parameters(const CurrentSenseParameters& new_params){
-		current_sense_parameters = new_params;
-		foc.phase_amp_per_adc_reading =
-			current_sense_parameters.reference_voltage / (
-				current_sense_parameters.shunt_resistance * current_sense_parameters.amp_gain * current_sense_parameters.adc_resolution
-			);
-		foc.input_voltage_per_adc_reading =
-			current_sense_parameters.reference_voltage /current_sense_parameters.adc_resolution * 21.f;
-	};
+	bool check_config(){
+		// Check BLDC motor parameters are within valid ranges
+		if (persistent_data.bldc_motor_parameters.cogging_correction_factor < 0.1f ||
+			persistent_data.bldc_motor_parameters.cogging_correction_factor > 2.0f) {
+			MODM_LOG_ERROR << "Invalid cogging factor (must be 0.1...2.0)" << modm::endl;
+			return false;
+		}
+		if (persistent_data.bldc_motor_parameters.inductance < 1e-6f ||
+			persistent_data.bldc_motor_parameters.inductance > 1000e-6f) {
+			MODM_LOG_ERROR << "Invalid inductance (must be 1...1000uH)" << modm::endl;
+			return false;
+		}
+		if (persistent_data.bldc_motor_parameters.resistance < 1e-3f ||
+			persistent_data.bldc_motor_parameters.resistance > 1000e-3f) {
+			MODM_LOG_ERROR << "Invalid resistance (must be 1...1000mOhm)" << modm::endl;
+			return false;
+		}
+		if (persistent_data.bldc_motor_parameters.electrical_per_mechanical_rev < 1.0f ||
+			persistent_data.bldc_motor_parameters.electrical_per_mechanical_rev > 1000.0f) {
+			MODM_LOG_ERROR << "Invalid electrical per mechanical rev (must be 1...1000)" << modm::endl;
+			return false;
+		}
+		if (persistent_data.bldc_motor_parameters.control_bandwidth < 0.5e3f ||
+			persistent_data.bldc_motor_parameters.control_bandwidth > 10e3f) {
+			MODM_LOG_ERROR << "Invalid control bandwidth (must be 500...10000)" << modm::endl;
+			return false;
+		}
+		return persistent_data.bldc_motor_parameters.initialized;
+	}
 
 	void
-	print_encoder()
+	print_persistent_data()
 	{
-		MODM_LOG_INFO << "Encoder offset is: " << persistent_data.phase_offset
-			<< "   inverted: " << persistent_data.inverted
-			<< modm::endl;
-
-		MODM_LOG_INFO << "Cogging calibration is: ";
-		for (const auto& f : persistent_data.feedforward_cogging_torques){
-			MODM_LOG_INFO.printf("%.3f, ", f);
+		MODM_LOG_INFO << "Persistent Data:" << modm::endl;
+		MODM_LOG_INFO << "  Auto reload: " << static_cast<int>(persistent_data.auto_reload) << modm::endl;
+		MODM_LOG_INFO << "  BLDC Motor Parameters:" << modm::endl;
+		MODM_LOG_INFO << "    Inductance: " << persistent_data.bldc_motor_parameters.inductance << " H" << modm::endl;
+		MODM_LOG_INFO << "    Resistance: " << persistent_data.bldc_motor_parameters.resistance << " Ohm" << modm::endl;
+		MODM_LOG_INFO << "    Electrical/Mechanical rev: " << persistent_data.bldc_motor_parameters.electrical_per_mechanical_rev << modm::endl;
+		MODM_LOG_INFO << "    Control bandwidth: " << persistent_data.bldc_motor_parameters.control_bandwidth << modm::endl;
+		MODM_LOG_INFO << "    Cogging correction factor: " << persistent_data.bldc_motor_parameters.cogging_correction_factor << modm::endl;
+		MODM_LOG_INFO << "    Initialized: " << persistent_data.bldc_motor_parameters.initialized << modm::endl;
+		MODM_LOG_INFO << "  Feedforward cogging torques: ";
+		for (const auto& torque : persistent_data.feedforward_cogging_torques) {
+			MODM_LOG_INFO.printf("%.2f ", torque);
 		}
+		MODM_LOG_INFO << modm::endl;
+		MODM_LOG_INFO << "  Phase offset: " << persistent_data.phase_offset << " ticks" << modm::endl;
+		MODM_LOG_INFO << "  Inverted: " << persistent_data.inverted << modm::endl;
+		MODM_LOG_INFO << "  Board ID: " << static_cast<int>(persistent_data.board_id) << modm::endl;
+		MODM_LOG_INFO << "  Use cogging compensation: " << persistent_data.use_cogging_compensation << modm::endl;
 		MODM_LOG_INFO << modm::endl;
 		MODM_LOG_INFO.flush();
 	}
@@ -192,7 +223,7 @@ static Configuration main_configuration{};
 
 void save_to_flash(){
 		MODM_LOG_INFO << "Saving data to flash" << modm::endl;
-		main_configuration.print_encoder();
+		main_configuration.print_persistent_data();
 
 		uint32_t err{0};
 		const size_t page_start = Flash::getPage(reinterpret_cast<uint32_t>(&__flash_reserved_start));
@@ -259,7 +290,7 @@ void load_from_flash(){
 		memcpy(&main_configuration.persistent_data, reinterpret_cast<void*>(flash_read_base_addr), sizeof(Configuration::PersistentData));
 		MODM_LOG_INFO << "\n Successfully restored config from flash" << modm::endl;
 		MODM_LOG_INFO.flush();
-		main_configuration.print_encoder();
+		main_configuration.print_persistent_data();
 }
 
 #endif // DATA_HPP
