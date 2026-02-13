@@ -1,6 +1,18 @@
-#include <modm/platform.hpp>
-#include <modm/debug/logger.hpp>
+// #include <modm/platform.hpp>
+// #include <modm/debug/logger.hpp>
+// #include <modm/processing/fiber/scheduler.hpp>
+// #include <modm/processing/fiber.hpp>
+#include "modm/platform.hpp"
+#include "modm/debug/logger.hpp"
+#include "modm/processing/fiber/scheduler.hpp"
+#include "modm/processing/fiber.hpp"
 #include "board.hpp"
+#include "data.hpp"
+#include "tasks/can_thread.hpp"
+#include "tasks/control_thread.hpp"
+#include "tasks/pdb_thread.hpp"
+#include "tasks/debug_thread.hpp"
+#include "tasks/buzzer_thread.hpp"
 
 #include <modm/math/filter/pid.hpp>
 
@@ -27,14 +39,17 @@ float braking_pid_value{0};
 
 bool break_overwrite{0};
 
+std::atomic<float> last_motor_current;
+
 MODM_ISR(TIM8_UP)
 {
 	using Timer = Board::DrivePower::BrakingTimer;
 	Timer::acknowledgeInterruptFlags(Timer::InterruptFlag::Update);
 
 	float v_supply = Adc1::getValue() * DrivePower::v_supply_div;
-	float i_drive  = (Adc2::getValue() - 0x7ff) * DrivePower::i_drive_div;
-
+	float i_drive  = static_cast<float>(
+		static_cast<int>(Adc2::getValue()) - 0x7ff)* DrivePower::i_drive_div;
+	last_motor_current.store(i_drive, std::memory_order_relaxed);
 	// if (i_drive >= i_drive_max){
 	// 	// trigger estop!!!
 	// 	DrivePower::disableDrive();
@@ -47,7 +62,7 @@ MODM_ISR(TIM8_UP)
 		DrivePower::disableDrive();
 		LogicPower::EnableMotor1::reset();
 		LogicPower::EnableMotor2::reset();
-
+		MODM_LOG_INFO.printf("V_supply < V_supply_min\n");
 	}
 
 	braking_pid.update(v_supply-DrivePower::v_supply_max);
@@ -66,6 +81,55 @@ MODM_ISR(TIM8_UP)
 
 }
 
+CanThread can_thread(main_configuration, can_thread.safety_timeout);
+ControlThread control_thread(main_configuration);
+PDBThread pdb_thread(main_configuration);
+DebugThread debug_thread(main_configuration);
+BuzzerThread buzzer_thread(main_configuration);
+
+
+extern modm::Fiber<2048> fiber_can_thread_run;
+
+modm_faststack modm::Fiber<2048> fiber_can_thread_run([](){
+	can_thread.initialize();
+	while(1){
+		can_thread.run();
+		modm::this_fiber::yield();
+	}
+	}, modm::fiber::Start::Later);
+
+
+modm_faststack modm::Fiber<2048> fiber_control_thread_run([](){
+	while(1){
+		control_thread.run();
+		modm::this_fiber::yield();
+	}
+}, modm::fiber::Start::Later);
+
+modm_faststack modm::Fiber<2048> fiber_pdb_thread_run([](){
+	pdb_thread.initialize();
+	while(1){
+		pdb_thread.run();
+		modm::this_fiber::yield();
+	}
+}, modm::fiber::Start::Later);
+
+modm_faststack modm::Fiber<2048> fiber_debug_thread_run([](){
+	while(1){
+		debug_thread.run();
+		float i_drive  = last_motor_current.load(std::memory_order_relaxed);
+		MODM_LOG_INFO << "Measured drive current: " << int{i_drive*1000} << " mA" << modm::endl;
+		modm::this_fiber::sleep_for(100ms);
+		modm::this_fiber::yield();
+	}
+}, modm::fiber::Start::Later);
+
+modm_faststack modm::Fiber<2048> fiber_buzzer_thread_run([](){
+	while(1){
+		buzzer_thread.run();
+		modm::this_fiber::yield();
+	}
+	}, modm::fiber::Start::Later);
 
 class UiBuzzer{
 public:
@@ -169,6 +233,15 @@ public:
 	}
 };
 
+void COMP1_2_3_IRQHandler(void)
+{
+    // Clear pending EXTI flag
+    EXTI->PR1 = (1U << 21);
+
+	DrivePower::disableDrive();
+
+	main_configuration.buzzer_action = Configuration::BuzzerActions::buzzingShortCircuitBreak;
+}
 
 int
 main()
@@ -188,14 +261,6 @@ main()
 	LogicPower::EnablePi::set();
 	DrivePower::disableDrive();
 
-	for (int i = 0; i<20; i++)
-	{
-		Ui::buzzerOn();
-		modm::delay(50ms);
-		Ui::buzzerOff();
-		modm::delay(50ms);
-	}
-
 	// modm::delay(2000ms);
 	Board::DrivePower::setBrakingCompareValue(0);
 	// DrivePower::enableDrive();
@@ -205,17 +270,25 @@ main()
 
 	std::array<uint8_t,Nrf::payload_length> payload{0};
 
-	// EStop estop(300ms);
+	// fiber_can_thread_run.watermark_stack();
+	// fiber_debug_thread_run.watermark_stack();
+	// fiber_control_thread_run.watermark_stack();
+	// fiber_pdb_thread_run.watermark_stack();
+	// fiber_buzzer_thread_run.watermark_stack();
 
-	DrivePower::enableDrive();
-	LogicPower::EnableMotor1::set();
-	LogicPower::EnableMotor2::set();
+	fiber_can_thread_run.start();
+	fiber_control_thread_run.start();
+	fiber_pdb_thread_run.start();
+	fiber_debug_thread_run.start();
+	fiber_buzzer_thread_run.start();
+
+
+	modm::fiber::Scheduler::run();
 
 	while (true)
 	{
-		// estop.update();
-		// estop.executeArmToRunning();
 		Ui::buzzerOff();
+
 
 		if(debug.execute()){
 			// Ui::buzzerOff();

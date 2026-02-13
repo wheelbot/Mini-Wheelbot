@@ -13,14 +13,18 @@
 
 #include <modm/platform.hpp>
 #include <modm/architecture/interface/clock.hpp>
+#include <modm/architecture/interface/gpio.hpp>
+#include <modm/platform/comp/comp_1.hpp>
 #include <modm/platform/comp/comp_2.hpp>
 #include <modm/platform/dac/dac_1.hpp>
 #include <modm/platform/dac/dac_3.hpp>
 #include <modm/debug/logger.hpp>
-#include <modm/platform/uart/uart_1.hpp>
+#include <modm/platform/uart/uart.hpp>
+#include <modm/architecture/interface/can.hpp>
 #include <modm/platform/timer/timer_1.hpp>
 #include <modm/platform/timer/timer_2.hpp>
 #include <modm/platform/timer/timer_8.hpp>
+#include <modm/platform/timer/timer_16.hpp>
 #include <modm/platform/spi/spi_master_1.hpp>
 #include <modm/platform/spi/spi_master_3.hpp>
 #include <modm/platform/dma/dma.hpp>
@@ -113,6 +117,8 @@ struct SystemClock
 		Rcc::setApb2Prescaler(Rcc::Apb2Prescaler::Div1);
 		// update frequencies for busy-wait delay functions
 		Rcc::updateCoreFrequency<Frequency>();
+
+		Rcc::setCanClockSource(Rcc::CanClockSource::Pclk);
 
 		return true;
 	}
@@ -348,13 +354,14 @@ namespace DrivePower {
 	using Dac = Dac1;
 
 
+
 	using BrakingTimer = Timer8;
 	// static constexpr uint16_t MaxPwm{2047}; // 11 bit PWM
 	static constexpr uint16_t MaxPwm{4095}; // 11 bit PWM
 
-	static constexpr float v_supply_div = 2.9f / 0xfff * 11.f / 0.968f;
-	static constexpr float i_drive_div =  2.9f / 0xfff / 20.f / 2.e-3;
-	static constexpr float v_supply_max =  25.8f;
+	static constexpr float v_supply_div = 3.0f / 0xfff * 11.f / 0.968f;
+	static constexpr float i_drive_div =  3.0f / 0xfff / 20.f / 2.e-3;
+	static constexpr float v_supply_max =  26.2f;
 
 	static inline void
 	setBrakingCompareValue(uint16_t value){
@@ -363,15 +370,19 @@ namespace DrivePower {
 
 	void inline
 	disableDrive(){
-		EnableDrive::reset();
-		// setBrakingCompareValue(0.9*MaxPwm);
+		// 0% duty to disable drive power
+		Timer16::setCompareValue<GpioA6::Ch1>(0);
+		setBrakingCompareValue(0.9*MaxPwm);
 	}
 
 
 	void inline
 	enableDrive(){
 		setBrakingCompareValue(0*MaxPwm);
-		EnableDrive::set();
+		// 100% duty to enable drive power
+
+		// drive power is enabled by the buzzer thread after playing the arming signal
+		Timer16::setCompareValue<GpioA6::Ch1>(Timer16::getOverflow());
 	}
 
 
@@ -431,6 +442,7 @@ namespace DrivePower {
 		// BrakingTimer::connect<EnableBrakingL::Ch1n, EnableBrakingH::Ch1>();
 		BrakingTimer::connect<EnableBrakingH::Ch1>();
 
+
 		BrakingTimer::start();
 
 		BrakingTimer::configureOutputChannel(1,
@@ -440,8 +452,13 @@ namespace DrivePower {
 			BrakingTimer::PinState::Disable,
 			BrakingTimer::OutputComparePolarity::ActiveHigh,
 			BrakingTimer::OutputComparePreload::Disable
-			);
+		);
+		// TIM8->AF1 |= (TIM1_AF1_BKINE | TIM1_AF1_BKCMP1E); 	// Connect COMP1_OUT to TIM8_BKIN
+		// TIM8->BDTR |= (TIM_BDTR_MOE | TIM_BDTR_BKE | TIM_BDTR_BKP | TIM_BDTR_OSSI);  // Main Output Enable + Break Enable
+		// TIM8->CR2  |= TIM_CR2_OIS1; 	// Force Timer8 to high if break triggers
 	}
+
+
 
 	// void inline
 	// initializeDacComp(){
@@ -482,16 +499,61 @@ namespace DrivePower {
 		VoltageSupply::setAnalogInput();
 		VoltageDrive::setAnalogInput();
 
-		// Set VREFBUF output to 2.9 V
-		VREFBUF->CSR &= ~(VREFBUF_CSR_HIZ | VREFBUF_CSR_VRS_0);
-		VREFBUF->CSR |= (VREFBUF_CSR_ENVR | VREFBUF_CSR_VRS_1);
+		Adc1::initialize(Adc1::ClockMode::SynchronousPrescaler4,
+						 Adc1::ClockSource::SystemClock,
+						 Adc1::Prescaler::Disabled,
+						 Adc1::CalibrationMode::SingleEndedInputsMode,
+						 true);
 
-		__ISB();
-		__DSB();
-		modm::delay(100ms);
+		modm::platform::Adc1::setChannel(
+				modm::platform::Adc1::Channel::InternalReference,
+				modm::platform::Adc1::SampleTime::Cycles13
+			);
 
-		__ISB();
-		__DSB();
+		modm::platform::Adc1::startConversion();
+
+		modm::delay_ms(100);
+
+		// Wait for the conversion to finish (blocking read).
+		// while (!modm::platform::Adc1::isConversionFinished());
+
+		while(!Adc1::isConversionFinished())
+			;
+
+		uint16_t vrefint_adc = static_cast<uint16_t>(ADC1->DR);
+		int adcValue = Adc1::getValue();
+
+		// constexpr uint32_t VREFINT_CAL_ADDR = 0x1FFF75AA;
+    	// uint16_t vrefint_cal = *reinterpret_cast<const uint16_t*>(VREFINT_CAL_ADDR);
+
+		// float vref = 3.0f * static_cast<float>(vrefint_cal) / static_cast<float>(vrefint_adc);
+    	// MODM_LOG_INFO << "VREF+ = " << vref << " mV" << modm::endl;
+    	// MODM_LOG_INFO << "VREFINT_CAL = " << vrefint_cal << " mV" << modm::endl;
+    	// MODM_LOG_INFO << "VREFINT_ADC = " << vrefint_adc << " mV" << modm::endl;
+    	// MODM_LOG_INFO << "ADC_VALUE = " << adcValue << " " << modm::endl;
+
+		// Empirically, the old boards show adcValues of ~ 4000,
+		// while the new boards show adcValues of ~ 900
+		if (adcValue > 2000)
+		{
+			MODM_LOG_INFO << "Old PDB detected with ADC_VALUE = " << adcValue << " ." << modm::endl;
+			// Set VREFBUF output to 2.9 V
+			VREFBUF->CSR &= ~(VREFBUF_CSR_HIZ | VREFBUF_CSR_VRS_0);
+			VREFBUF->CSR |= (VREFBUF_CSR_ENVR | VREFBUF_CSR_VRS_1);
+
+			__ISB();
+			__DSB();
+			modm::delay(100ms);
+
+			__ISB();
+			__DSB();
+		}
+		else {
+			MODM_LOG_INFO << "New PDB detected with ADC_VALUE = " << adcValue << " ." << modm::endl;
+		}
+
+
+
 
 		Adc1::initialize(Adc1::ClockMode::SynchronousPrescaler4,
 						 Adc1::ClockSource::SystemClock,
@@ -522,14 +584,102 @@ namespace DrivePower {
 	}
 
 	void inline
-	initialize(){
+	initializeComp(){
+		GpioA1::setAnalogInput();
 
-		EnableDrive::setOutput(false);
+		Dac3::initialize<SystemClock>();
+		Dac3::setMode(Dac3::Channel::Channel1, Dac3::Mode::Internal);
+		Dac3::enableChannel(Dac3::Channel::Channel1);
+
+		constexpr float max_current = 35; // A
+		constexpr uint16_t comp_inn = static_cast<uint16_t>((1.5-max_current*2e-3f*20.f)/3.0f*0xfff);
+		MODM_LOG_INFO << "Setting max current to " << max_current
+			<< "A, this is comparator value " << comp_inn << modm::endl;
+		Dac3::setOutput(Dac3::Channel::Channel1, comp_inn);
+
+		__DSB();
+		__ISB();
+		modm::delay_ms(100);
+		__DSB();
+		__ISB();
+
+		Comp1::initialize(Comp1::InvertingInput::Dac3Ch1,
+							Comp1::NonInvertingInput::GpioA1,
+							Comp1::Hysteresis::NoHysteresis,
+							Comp1::Polarity::Inverted);
+
+		EXTI->IMR1 |= (1 << 21);	// Unmask EXTI for Comp1
+		EXTI->RTSR1 |= (1 << 21); 	// Rising Trigger
+		// EXTI->FTSR1 |= (1 << 21);	// Falling Trigger
+		EXTI->PR1 |= (1 << 21); 	// Clear pending interrupt flag
+
+		NVIC_SetPriority(COMP1_2_3_IRQn, 6);
+		NVIC_EnableIRQ(COMP1_2_3_IRQn);
+
+	}
+
+	void inline
+	initializeTimer16(){
+		GpioA6::setAlternateFunction(1);
+		modm::platform::Timer16::connect<GpioA6::Ch1>();
+		Timer16::enable();
+		Timer16::setMode(Timer16::Mode::UpCounter);
+
+		// Configure PWM @ 10 kHz
+		constexpr uint32_t timerClock = 170'000'000;
+		constexpr uint32_t pwmFreq = 10'000;
+		constexpr uint16_t prescaler = 1;
+		constexpr uint16_t overflow = (timerClock / (prescaler * pwmFreq)) - 1;
+
+		Timer16::setPrescaler(prescaler);
+		Timer16::setOverflow(overflow);
+
+		// PWM 0% duty initially
+		Timer16::configureOutputChannel<GpioA6::Ch1>(
+			Timer16::OutputCompareMode::Pwm, 0);
+
+		Timer16::applyAndReset();
+		Timer16::pause();
+
+		TIM16->AF1 |= (TIM1_AF1_BKINE | TIM1_AF1_BKCMP1E); 	// Connect COMP1_OUT to TIM16_BKIN
+		TIM16->BDTR |= (TIM_BDTR_MOE | TIM_BDTR_BKE | TIM_BDTR_BKP);  // Main Output Enable + Break Enable
+		Timer16::start();
+	}
+
+	void inline
+	initialize(){
 
 		initializeAdc();
 		initializeBraking();
+		initializeComp();
+		initializeTimer16();
 
+	}
+}
 
+namespace Charging {
+
+	using ChargingPin = GpioB1;
+
+	void inline
+	initializeCharging(){
+		ChargingPin::setInput();
+	}
+
+}
+
+namespace CanBus {
+	using CanRx			= GpioA11;
+	using CanTx			= GpioA12;
+	using Can			= Fdcan1;
+
+	static constexpr uint32_t CanBaudrate = 1_Mbps;
+
+	inline void
+	initialize()
+	{
+		Can::connect<CanRx::Rx, CanTx::Tx>(Gpio::InputType::PullUp);
+		Can::initialize<SystemClock, CanBaudrate>(9);
 	}
 }
 
@@ -541,6 +691,9 @@ initialize()
 
 
 	Ui::initializeDebugUart();
+
+	MODM_LOG_INFO << "\n--------------------------------- \nWelcome to the Mini Wheelbot PDB \n--------------------------------- \n" << modm::endl;
+
 	Ui::initializeLeds();
 	Ui::initializeBuzzer();
 
@@ -551,6 +704,8 @@ initialize()
 
 	Nrf::initializeSpi();
 	Nrf::initializeNrf();
+
+	CanBus::initialize();
 
 }
 
