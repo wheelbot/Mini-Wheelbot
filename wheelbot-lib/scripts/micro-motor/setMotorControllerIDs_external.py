@@ -2,7 +2,7 @@ import os
 import can
 import time
 
-bus = can.interface.Bus(channel='motorCan', bustype='socketcan')
+bus = can.interface.Bus(channel='can0', bustype='socketcan')
 
 responseError = False
 
@@ -85,6 +85,10 @@ try:
         msg_set_id = can.Message(arbitration_id=0x020 + board_id, data=data, is_extended_id=False)
         print(f"[INFO] Setting board ID → {new_board_id} (UUID {uuid})")
         bus.send(msg_set_id)
+        time.sleep(5)
+        msg_auto_reload = can.Message(arbitration_id=0x020 + new_board_id, data=[0x023], is_extended_id=False)
+        print("[INFO] Enabling auto-reload.")
+        bus.send(msg_auto_reload)
         time.sleep(5)
         msg_save_flash = can.Message(arbitration_id=0x020 + new_board_id, data=[0x021], is_extended_id=False)
         print("[INFO] Saving board ID to flash.")

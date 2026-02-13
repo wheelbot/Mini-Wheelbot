@@ -81,3 +81,14 @@
 | [Internal frame 1](mechanical/step/electronics_frame_split_1.stp), can be printed in two pieces [a](mechanical/meshes/electronics_frame_split_1-a.stl) and [b](mechanical/meshes/electronics_frame_split_1-b.stl) and glued | PETG or other high-temp filament, NO PLA | 1 | |
 | [Internal frame 2](mechanical/step/electronics_frame_split_2.stp), can be printed in two pieces [a](mechanical/meshes/electronics_frame_split_2-a.stl) and [b](mechanical/meshes/electronics_frame_split_2-b.stl) and glued | PETG or other high-temp filament, NO PLA | 1 | |
 | [Magnet holder](mechanical/meshes/magnet_adapter.stl) | PETG or other high-temp filament, NO PLA | 1 | |
+
+## Tools
+| Item | Description | Qty | Vendor |
+| ---- | ---- | --- | --- |
+| ST-Link V2 Programmer | SWD Programmer | 1 | [Amazon](https://amzn.eu/d/00pj816s) |
+| TTL to USB Adapter | UART Debugger | 1 | [Amazon](https://amzn.eu/d/01Bp48ve) |
+| CAN Adapter | CAN USB-Interface | 1 | [Amazon](https://amzn.eu/d/08WZT5C6) |
+| CAN Pin Terminal | CAN Pin Terminal Female | 1 | [Amazon](https://amzn.eu/d/05fRgW5H) |
+| JST-GH 6in | AGHGH28K152 precrimped 6in 28AWG single wire | 9 | [DigiKey](https://www.digikey.de/de/products/detail/jst-sales-america-inc/AGHGH28K152/6009449) |
+| JST GH 3 pin plug housing | GHR-03V-S | 3 | [DigiKey](https://www.digikey.de/de/products/detail/jst-sales-america-inc/GHR-03V-S/807815) |
+| Syringe | 10ml disposable syringes with wide-lumen needle for applying epoxy | 1+ | |
