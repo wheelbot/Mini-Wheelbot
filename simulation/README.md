@@ -42,7 +42,7 @@ pip install -e /path/to/acados/interfaces/acados_template
 This should automatically also install casadi.
 Now, you are ready to install the `wheelbot-dynamics` package as:
 ```
-pip install -e /path/to/wheelbot-dynamics-functions/python/wheelbot-dynamics
+pip install -e /path/to/wheelbot-dynamics-functions/python
 ```
 
 ## Running the example
