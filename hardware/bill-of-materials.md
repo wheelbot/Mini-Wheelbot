@@ -54,6 +54,8 @@
 | M3x8mm socket head screw | DIN912 socket head hex stainless A1/A2 M3x8mm | 2 | [McMaster](https://www.mcmaster.com/91292A111/) |
 | M2x3mm threaded 3D print insert | Brass heat-set inserts for plastic, M2x3mm | 2 | [McMaster](https://www.mcmaster.com/94459A110/) | 
 | M2.5x4mm threaded 3D print insert | Brass heat-set inserts for plastic, M2.5x4mm | 7 | [McMaster](https://www.mcmaster.com/94459A768/) | 
+| M2 washer | DIN125 stainless steel general purpose washer M2 | 4 | [McMaster](https://www.mcmaster.com/93475A195/) |
+
 
 # Precrimped Cables and Connector Housings
 | Item | Description | Qty | Vendor |
