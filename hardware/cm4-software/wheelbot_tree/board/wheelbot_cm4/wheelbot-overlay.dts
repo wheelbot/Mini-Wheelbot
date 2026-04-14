@@ -1,0 +1,224 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "brcm,bcm2835", "brcm,bcm2836", "brcm,bcm2708", "brcm,bcm2709", "brcm,bcm2711";
+
+    // disable bluetooth
+    fragment@0 {
+        target = <&uart1>;
+        __overlay__ {
+            status = "disabled";
+        };
+    };
+
+    fragment@1 {
+        target = <&uart0>;
+        __overlay__ {
+            pinctrl-names = "default";
+            pinctrl-0 = <&uart0_pins>;
+            status = "okay";
+        };
+    };
+
+    fragment@2 {
+        target = <&uart0_pins>;
+        __overlay__ {
+            brcm,pins;
+            brcm,function;
+            brcm,pull;
+        };
+    };
+
+    fragment@3 {
+        target-path = "/aliases";
+        __overlay__ {
+            serial0 = "/soc/uart@7e201000";
+            serial1 = "/soc/uart@7e215040";
+        };
+    };
+
+    fragment@4{
+    target = <&spidev0>;
+    __overlay__ {
+        status = "disabled";
+    };
+    };
+
+    fragment@5{
+    target = <&spidev1>;
+    __overlay__ {
+        status = "disabled";
+    };
+    };
+
+    // Interrupts & cs lines
+    fragment@6 {
+        target = <&gpio>;
+        __overlay__ {
+            can_int_pins: can_int_pins {
+                brcm,pins = <24>;
+                brcm,function = <0>; // input
+            };
+
+            gyr_int_pins: gyr_int_pins {
+                brcm,pins = <4 9 12 26>;
+                brcm,function = <0>; // input
+            };
+
+            acc_int_pins: acc_int_pins {
+                brcm,pins = <5 10 11 13>;
+                brcm,function = <0>; // input
+            };
+
+            i2c4_pins: i2c4_pins {
+                brcm,pins = <6 7>;
+                brcm,function = <2>; // alternate function 5, i2c4
+            };
+
+            i2c3_pins: i2c3_pins {
+                brcm,pins = <2 3>;
+                brcm,function = <2>; // alternate function 5, i2c3
+            };
+
+            spi1_pins: spi1_pins {
+                brcm,pins = <19 20 21>;
+                brcm,function = <3>; // alternate function 4, spi1
+            };
+
+            spi1_cs_pins: spi1_cs_pins {
+                brcm,pins = <18>;
+                brcm,function = <1>; // push pull
+            };
+        };
+    };
+
+    fragment@7 {
+        target-path = "/clocks";
+        __overlay__ {
+            // 20M oscillator of mcp2518fd chips
+            mcp2518fd_osc: mcp2518fd_osc {
+                compatible = "fixed-clock";
+                #clock-cells = <0>;
+              clock-frequency  = <20000000>;
+            };
+        };
+    };
+
+    fragment@8 {
+        target = <&spi1>;
+        __overlay__ {
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            cs-gpios = <&gpio 18 1>;
+
+            status = "okay";
+            motorCan: motorCan@0 {
+                reg = <0>;
+                pinctrl-names = "default";
+                pinctrl-0 = <&spi1_pins &spi1_cs_pins>;
+                compatible = "microchip,mcp251xfd";
+                spi-max-frequency = <20000000>;
+                interrupt-parent = <&gpio>;
+                interrupts = <24 8>;
+                clocks = <&mcp2518fd_osc>;
+            };
+        };
+
+    };
+
+    fragment@9 {
+        target = <&i2c3>;
+        __overlay__ {
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            pinctrl-names = "default";
+            pinctrl-0 = <&i2c3_pins>;
+            clock-frequency = <400000>;
+
+            status = "okay";
+            gyro0: gyro0@69 {
+                compatible = "bosch,bmg160";
+                reg = <0x69>;
+                interrupt-parent = <&gpio>;
+                interrupts = <4 1>;
+                label = "gyro0";
+            };
+
+            acc0: acc0@19 {
+                compatible = "bosch,bmi088_accel";
+                reg = <0x19>;
+                interrupt-parent = <&gpio>;
+                interrupts = <10 1>;
+                label = "acc0";
+            };
+
+            gyro1: gyro1@68 {
+                compatible = "bosch,bmg160";
+                reg = <0x68>;
+                interrupt-parent = <&gpio>;
+                interrupts = <9 1>;
+                label = "gyro1";
+            };
+
+            acc1: acc1@18 {
+                compatible = "bosch,bmi088_accel";
+                reg = <0x18>;
+                interrupt-parent = <&gpio>;
+                interrupts = <11 1>;
+                label = "acc1";
+            };
+        };
+
+    };
+
+    fragment@10 {
+        target = <&i2c4>;
+        __overlay__ {
+
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            pinctrl-names = "default";
+            pinctrl-0 = <&i2c4_pins>;
+            clock-frequency = <400000>;
+
+            status = "okay";
+
+            gyro2: gyro2@69 {
+                compatible = "bosch,bmg160";
+                reg = <0x69>;
+                interrupt-parent = <&gpio>;
+                interrupts = <12 1>;
+                label = "gyro2";
+            };
+
+            acc2: acc2@19 {
+                compatible = "bosch,bmi088_accel";
+                reg = <0x19>;
+                interrupt-parent = <&gpio>;
+                interrupts = <5 1>;
+                label = "acc2";
+            };
+
+            gyro3: gyro3@68 {
+                compatible = "bosch,bmg160";
+                reg = <0x68>;
+                interrupt-parent = <&gpio>;
+                interrupts = <26 1>;
+                label = "gyro3";
+            };
+
+            acc3: acc3@18 {
+                compatible = "bosch,bmi088_accel";
+                reg = <0x18>;
+                interrupt-parent = <&gpio>;
+                interrupts = <13 1>;
+                label = "acc3";
+            };
+        };
+    };
+
+};

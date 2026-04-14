@@ -1,0 +1,48 @@
+#!/bin/bash
+cat << EOF
+                                        
+                 %%%%%,       *         
+                %%%%%%,       *         
+        %%%%%%%%%%%   *(((              
+         %%%%%%%%     ,      ( (    *   
+        %%%%%%            %%            
+     %%%%%%%%                (((   **,  
+     %%%%%%%%                (((   .*   
+        %%%%%%                   *      
+         %%%%%%%%%  *%,   (((           
+         %%%%%%%%%%   . %          **   
+                ,%%%%%,      ((         
+                  *(((.      *(         
+
+EOF
+
+echo "[1] Filesystem expansion"
+EXPANDFS_SCRIPT="/etc/init.d/expandfs.sh"
+if test -f $EXPANDFS_SCRIPT; then
+    echo "    => Expanding Filesystem & reboot!"
+    /bin/bash $EXPANDFS_SCRIPT
+else
+    echo "    => Filesystem already expanded!"
+fi
+
+# Init motorCAN & sensorCan
+echo "[2] CAN bus adapter init"
+if cat /sys/class/net/can0/device/of_node/name | grep -q "sensorCan"; then
+    echo "    => sensorCan adapter found!"
+    ip link set can0 down
+    ip link set can0 name sensorCan
+    ip link set sensorCan type can bitrate 125000
+    ip link set up sensorCan
+    echo "    => sensorCan should be up now"
+elif cat /sys/class/net/can0/device/of_node/name | grep -q "motorCan"; then
+    echo "    => motorCan adapter found!"
+    ip link set can0 down
+    ip link set can0 name motorCan
+    ip link set motorCan type can bitrate 1000000
+    ip link set up motorCan
+    echo "    => motorCan should be up now"
+else
+    echo "    => CAN0 adapter NOT found! SKIPPING INIT"
+fi
+
+modprobe i2c-dev
