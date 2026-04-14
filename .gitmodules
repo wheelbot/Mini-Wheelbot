@@ -1,0 +1,3 @@
+[submodule "hardware/cm4-software/buildroot"]
+	path = hardware/cm4-software/buildroot
+	url = https://github.com/buildroot/buildroot
