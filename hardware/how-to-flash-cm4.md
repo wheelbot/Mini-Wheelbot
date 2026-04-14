@@ -45,7 +45,7 @@ make defconfig BR2_DEFCONFIG=../wheelbot_tree/configs/wheelbot_cm4_defconfig
 Build the image. The first build usually takes 20 to 60 minutes:
 
 ```bash
-make BR2_EXTERNAL=../wheelbot_tree
+make BR2_EXTERNAL=/absolute/path/to/mini-wheelbot/hardware/cm4-software/wheelbot_tree
 ```
 
 The flashable image will be written to:
@@ -73,7 +73,7 @@ docker run --rm -it \
   -v "$(pwd)/hardware/cm4-software:/work" \
   -w /work/buildroot \
   wheelbot-cm4-build \
-  bash -lc 'make defconfig BR2_DEFCONFIG=../wheelbot_tree/configs/wheelbot_cm4_defconfig && make BR2_EXTERNAL=../wheelbot_tree'
+  bash -lc 'make defconfig BR2_DEFCONFIG=../wheelbot_tree/configs/wheelbot_cm4_defconfig && make BR2_EXTERNAL=/work/wheelbot_tree'
 ```
 
 This produces the same output image on the host at `hardware/cm4-software/buildroot/output/images/sdcard.img`.
