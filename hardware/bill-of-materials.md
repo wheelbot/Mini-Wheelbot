@@ -29,6 +29,7 @@
 | Cell Adapter [gerbers](electronics/gerbers/cell-adapter/cell-adapter-v1.kicad_pcb_gerber.zip) | 2 layer, 1.6mm, 2x press fit holes! | 2 | [http://pcbway.com/](http://pcbway.com/) |
 | 3-phase cable extension [gerbers](electronics/gerbers/motorcon/motorcon-v1.kicad_pcb_gerber.zip) | 2 layer, 1.6mm | 1 | [http://pcbway.com/](http://pcbway.com/) |
 | Encoder [schematics](electronics/schematic/encoder.pdf), [gerbers](electronics/gerbers/encoder/encoder-v1.kicad_pcb_gerber.zip) | 2 layer, 1.6mm | 2 | [http://pcbway.com/](http://pcbway.com/) | 
+| Charger [schematics](electronics/schematic/charger.pdf), [gerbers](electronics/gerbers/charger/ui-v2.kicad_pcb_gerber.zip) |4 layer, 1.6 mm | 1 | [http://pcbway.com/](http://pcbway.com/) | 
 
 ## Battery Pack
 | Item | Description | Qty | Vendor |
