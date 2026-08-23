@@ -86,7 +86,7 @@ def export_wheelbot_ode_model():
     M = fM(phi, theta, m_WR, m_B, m_WR, I_Wxz_Ryz, I_Wy_Rx, I_Wxz_Ryz, I_Bx, I_By, I_Bz, I_Wy_Rx, I_Wxz_Ryz, I_Wxz_Ryz, r_W, l_WB)
     b = fb(phi, theta, dpsi, dphi, dtheta, omega_W, omega_R, m_WR, m_B, m_WR, I_Wxz_Ryz, I_Wy_Rx, I_Wxz_Ryz, I_Bx, I_By, I_Bz, I_Wy_Rx, I_Wxz_Ryz, I_Wxz_Ryz, r_W, l_WB)
     g = fg(phi, theta, tau_W, tau_R, m_WR, m_B, m_WR, r_W, l_WB)
-    tau_contact = cs.tanh(dpsi*fric_slope)*fric_magn
+    tau_contact = cs.vertcat(cs.tanh(dpsi*fric_slope)*fric_magn, 0,0,0,0)
     
     f_impl_q = cs.vertcat(psi_dot, phi_dot, theta_dot, q_W_dot, q_R_dot)-cs.vertcat(dpsi, dphi, dtheta, omega_W, omega_R)
     f_impl_dq = M @ cs.vertcat(dpsi_dot, dphi_dot, dtheta_dot, omega_W_dot, omega_R_dot) + b + g + tau_contact
